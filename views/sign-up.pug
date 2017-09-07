@@ -3,4 +3,16 @@ extends index
 block content
   p Hello
   p Please fill out the information below
-  form(action="POST" method="POST")
+  form(action='/api/users' method='POST')
+    .flex-container
+      .row
+        div.input-field.col.s12
+          input.validate(id='username' type='text')
+          label.active(for='username') Username Here
+        div.input-field.col.s12
+          input.validate(id='email' type='text')
+        div.input-field.col.s12
+          textarea.materialize-textarea(id='description' type='text')
+          label(for='description') Description
+        button.btn.waves-effect.waves-light(type='submit' name='action') Submit
+
