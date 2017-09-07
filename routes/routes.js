@@ -2,7 +2,7 @@ const db = require("../models")
 
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    res.render("index")
+    res.render("index2")
   })
 
   // Displays the sign up page
