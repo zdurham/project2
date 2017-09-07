@@ -12,3 +12,7 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+.nav-wrapper h2{
+	position: relative;
+	margin-top:0px;
+}

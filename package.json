@@ -1,27 +1,17 @@
 {
-  "name": "project2",
+  "name": "rallypointstarter",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zdurham/project2.git"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zdurham/project2/issues"
-  },
-  "homepage": "https://github.com/zdurham/project2#readme",
   "dependencies": {
-    "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "mysql2": "^1.4.2",
-    "pug": "^2.0.0-rc.3",
-    "sequelizer": "^1.1.3"
+    "materialize": "^1.0.0",
+    "materialize-css": "^0.100.2",
+    "pug": "^2.0.0-rc.3"
   }
 }

@@ -1,0 +1,1 @@
+alert('external Javascript file loaded');
