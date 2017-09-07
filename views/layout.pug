@@ -1,3 +1,4 @@
+
 //I am a line comment
 <!--I am a block Comment ASDSa 
 dasdas sad-->
@@ -9,20 +10,46 @@ html
 		link(rel = "stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
 		link(type="text/css", rel ="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
 		link(rel = 'stylesheet', href='../../static/assets/css/style.css')
-		script(src='/static/js/main.js')
+		
 		
 		
 	body
-		nav(class="light-blue lighten-1", role="navigation")
-			div(class="nav-wrapper container")
-				a(id ="logo-container", href="#", src="public/assets/images/helpinghand.jpg", title="RallySTRONG", alt="RallySTRONG", class="brand-logo")
-				ul(class="right hide-on-med-and-down")
+		ul(id="dropdown1", class="dropdown-content")
+			li
+				a(href ="#!") Requests
+			li
+				a(href = "#!") Causes
+			li(class ="divider")
+			li
+				a(href ="#!") Posts
+
+		ul(id="dropdown2", class="dropdown-content")
+			li
+				a(href ="#!") User Profile
+			li
+				a(href = "#!") Option 2
+			li(class ="divider")
+			li
+				a(href ="#!") Sign Out
+		nav
+			div(class="nav-wrapper")
+				h2(class ="left valign-wrapper") Rally Point
+				ul(class="hide-on-med-and-down left")
 					li
-						a(href="#")
-				ul(id="nav-mobile", class = "side-nav")
+						a(class ="dropdown-button", href="#!", data-activates ='dropdown1') Get Active
+							i(class ="material-icons right") arrow_drop_down
 					li
-						a(href="#", data-activates="nav-mobile", class="button-collapse")
-							i(class ="material-icons") menu
+						a(href ="#") About Us
+					li
+						a(href ="#") Components
+					li
+						a(href ="#") Contact
+				ul(class = "hide-on-med-and-down right")
+					li
+						a(href ="#") login /sign up
+					li
+						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
+							i(class ="material-icons right") arrow_drop_down
 		div(class = "slider")
 			ul(class="slides")
 				li
@@ -74,6 +101,7 @@ html
 								i(class="material-icons") settings
 							h5(class = "center") Easy to work with
 							p(class = "light") We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.
+block content
 		footer(class="page-footer orange")
 			div(class="container")
 				div(class="row")
@@ -102,6 +130,13 @@ html
 								a(href = "#", class ="white-text") Link 3
 							li
 								a(href = "#", class ="white-text") Link 4
+			div(class= "footer-copyright")
+				div(class ="container") Copyright 2017 RallyPoint - All Rights Reserved.
+					a(class ="grey-text text-lighten-4 right", href="#!") More Links
+
+
+
+
 
 
 
@@ -110,3 +145,5 @@ html
 		script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
 		script(type= "text/javascript", src="../../static/assets/javascript/slider.js")
+
+block content
