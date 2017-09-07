@@ -1,12 +1,12 @@
 const db = require("../models")
 
-module.exports = function(app) {
-  app.get("/", function(req, res) {
+module.exports = (app) => {
+  app.get("/", (req, res) => {
     res.render("index")
   })
 
   // Displays the sign up page
-  app.get("/sign-up", function(req, res) {
+  app.get("/sign-up", (req, res) => {
     res.render("sign-up")
   })
 
@@ -16,7 +16,12 @@ module.exports = function(app) {
 
   // Post a user
   app.post("/api/users", (req, res) => {
-    db.User.create(req.body).then(dbUser => res.json(dbUser))
+    console.log(req.body)
+    db.User.create({
+      username: req.body.username,
+      email: req.body.email,
+      description: req.body.description
+    }).then(dbUser => res.render('welcome'))
   })
 
   // Display all Users and their related comments and posts

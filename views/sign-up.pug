@@ -1,18 +1,17 @@
 extends index
 
 block content
-  p Hello
-  p Please fill out the information below
-  form(action='/api/users' method='POST')
-    .flex-container
+  .flex-container
+    p Hello
+    p Please fill out the information below
+    form(method='POST' action="/api/users")
       .row
         div.input-field.col.s12
-          input.validate(id='username' type='text')
-          label.active(for='username') Username Here
+          input.validate#username(name="username" type="text")
+          lable(for="username") Username
         div.input-field.col.s12
-          input.validate(id='email' type='text')
+          input.validate#email(name="email" type="text")
+          label(for="email") Email
         div.input-field.col.s12
-          textarea.materialize-textarea(id='description' type='text')
-          label(for='description') Description
-        button.btn.waves-effect.waves-light(type='submit' name='action') Submit
-
+          textarea.materialize-textarea#description(name="description" type="text")
+        button.btn.waves-effect.waves-light#submit(type="submit") Submit
