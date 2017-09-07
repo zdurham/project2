@@ -1,6 +1,7 @@
 const express = require('express')
 const pug = require('pug')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 
 const app = express();
@@ -9,6 +10,7 @@ const port = process.env.PORT || 8080;
 var db = require('./models');
 
 app.set("view engine", "pug")
+app.set("views", path.join(__dirname, "views"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));

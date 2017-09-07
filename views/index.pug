@@ -1,6 +1,13 @@
 doctype html
 html(lang="en")
   head
-    title Page Name Here
+    include head.pug
   body
-    h1 Hello World!
+    block content
+
+    // Linking jQuery
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+    // Linking Materialize JS
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+    
+    

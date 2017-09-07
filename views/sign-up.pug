@@ -1,0 +1,17 @@
+extends index
+
+block content
+  .flex-container
+    p Hello
+    p Please fill out the information below
+    form(method='POST' action="/api/users")
+      .row
+        div.input-field.col.s12
+          input.validate#username(name="username" type="text")
+          lable(for="username") Username
+        div.input-field.col.s12
+          input.validate#email(name="email" type="text")
+          label(for="email") Email
+        div.input-field.col.s12
+          textarea.materialize-textarea#description(name="description" type="text")
+        button.btn.waves-effect.waves-light#submit(type="submit") Submit

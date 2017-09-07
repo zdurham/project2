@@ -1,6 +1,6 @@
-module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
-    name: {
+module.exports = (sequelize, DataTypes) => {
+  var User = sequelize.define('User', {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -16,5 +16,14 @@ module.exports = function(sequelize, DataTypes) {
     },
   })
 
+  // Data associations 
+  User.associate = (models) => {
+    User.hasMany(models.Post, {
+      onDelete: 'cascade'
+    })
+    User.hasMany(models.Comment, {
+      onDelete: 'cascade'
+    })
+  }
   return User
 }
