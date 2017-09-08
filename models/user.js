@@ -1,19 +1,39 @@
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [5]
-      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    description: {
-      type: DataTypes.STRING,
+    about: {
+      type: DataTypes.TEXT,
     },
+    userId: {
+      type: DataTypes.TEXT
+    },
+    lastLogin: {
+      type: DataTypes.DATE
+    }
   })
 
   // Data associations 

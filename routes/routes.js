@@ -2,16 +2,12 @@ const db = require("../models")
 
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    res.render("index2")
+    res.render("main")
   })
 
   // Displays the sign up page
   app.get("/sign-up", (req, res) => {
     res.render("sign-up")
-  })
-
-  app.get("/welcome", (req, res) => {
-    res.render("welcome")
   })
 
   // Post a user

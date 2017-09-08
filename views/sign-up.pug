@@ -1,17 +1,27 @@
-extends index
+extends main
 
 block content
   .flex-container
     p Hello
     p Please fill out the information below
-    form(method='POST' action="/api/users")
+    form#signin(method='POST' action="/sign-up" name="signup")
       .row
-        div.input-field.col.s12
-          input.validate#username(name="username" type="text")
-          lable(for="username") Username
+        div.input-field.col.s6
+          input.validate#firstName(name="firstName" type="text")
+          label(for="firstName") First Name
+        div.input-field.col.s6
+          input.validate#lastName(name="lastName" type="text")
+          label(for="lastName") Last Name
         div.input-field.col.s12
           input.validate#email(name="email" type="text")
           label(for="email") Email
         div.input-field.col.s12
-          textarea.materialize-textarea#description(name="description" type="text")
+          input.validate#username(name="username" type="text")
+          label(for="username") Username
+        div.input-field.col.s12
+          input.validate#password(name="password" type="text")
+          label(for="password") Password  
+        div.input-field.col.s12
+          textarea.materialize-textarea#about(name="about" type="text")
+          label(for="about") About Me
         button.btn.waves-effect.waves-light#submit(type="submit") Submit
