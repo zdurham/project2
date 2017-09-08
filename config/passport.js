@@ -4,6 +4,8 @@ Reference for notes: https://code.tutsplus.com/tutorials/using-passport-with-seq
 
 *///////
 
+
+const db = require('../models')
 const bcrypt = require('bcrypt')
 
 
@@ -31,21 +33,25 @@ passport.deserializeUser(function(id, done) {
   
 
   passport.use('local-signup', new LocalStrategy({
-   usernameField: 'username',
+   usernameField: 'email',
    passwordField: 'password',
-   emailField: 'email',
-   descriptionField: 'description',
    passReqToCallback: true 
   },
 
   (req, email, password, done) => {
+    console.log('password:', password)
+    console.log('email:', email)
+    console.log('firstName: ', req.body.firstName)
+    console.log('lastName: ', req.body.lastName)
+    console.log('about', req.body.about)
+    console.log('username:', req.body.username)
     const generateHash = (password) => {
       return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
     }
 
     db.User.findOne({
       where: {
-        username: username
+        email: email
       }
     }).then(user => {
       if (user) {
@@ -57,10 +63,12 @@ passport.deserializeUser(function(id, done) {
         const userPassword = generateHash(password)
         
         const data = {
-          username: username,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: email,
+          username: req.body.username,
           password: userPassword,
-          email: req.body.email,
-          description: req.body.description
+          about: req.body.about
         };
 
         db.User.create(data).then(function(newUser, created) {
@@ -69,6 +77,7 @@ passport.deserializeUser(function(id, done) {
           }
 
           if (newUser) {
+            req.session.userId = newUser._id 
             return done(null, newUser)
           }
         });

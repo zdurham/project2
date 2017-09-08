@@ -15,8 +15,9 @@ module.exports = (app, passport) => {
 
   // Displaying welcome
   app.get('/welcome', isLoggedIn, (req, res) => {
-    res.render("welcome")
-  })
+    console.log('id', req.session.userId)
+      res.render("welcome")
+  }) 
 
   // Registering user
   app.post("/sign-up", passport.authenticate('local-signup', {

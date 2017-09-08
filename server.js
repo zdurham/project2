@@ -16,6 +16,14 @@ app.set("view engine", "pug")
 app.set("views", path.join(__dirname, "views"));
 
 //---------------------------------------------
+// For Passport
+//---------------------------------------------
+ 
+app.use(session({ secret: 'totallysecret',resave: true, saveUninitialized:true})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+//---------------------------------------------
 // Body Parser Code below
 //---------------------------------------------
 
@@ -36,7 +44,6 @@ require("./config/passport.js")(passport, db.User)
 
 // API Routes
 require("./routes/comment-route.js")(app)
-
 
 // Authentication route
 require("./routes/auth.js")(app, passport)
