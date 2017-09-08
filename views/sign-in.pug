@@ -1,0 +1,18 @@
+extends main
+
+block content
+  .flex-container
+    p Hello
+    p Please fill out the information below
+    form#signin(method='POST' action="/sign-up" name="signup")
+      .row
+        div.input-field.col.s12
+          input.validate#email(name="email" type="text")
+          label(for="email") Email
+        div.input-field.col.s12
+          input.validate#email(name="email" type="text")
+          label(for="email") Password
+        
+        button.btn.waves-effect.waves-light#submit(type="submit") Submit
+
+  

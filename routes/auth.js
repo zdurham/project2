@@ -13,17 +13,29 @@ module.exports = (app, passport) => {
   })
 
 
-  // Displaying
-  app.get('/dashboard', (req, res, next) => {
-    if (req.isAuthenticated())
-      return next();
-    res.redirect('/sign-in')
+  // Displaying welcome
+  app.get('/welcome', isLoggedIn, (req, res) => {
+    res.render("welcome")
   })
 
   // Registering user
   app.post("/sign-up", passport.authenticate('local-signup', {
-   successRedirect: '/dashboard',
+   successRedirect: '/welcome',
    
    failureRedirect: '/sign-up'
   }));
+
+  // Returning user signs in
+  app.post("/sign-in", passport.authenticate('local-signin', {
+    successRedirect: '/welcome',
+    
+    failureRedirect: '/sign-up'
+   }));
+
+
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+      return next();
+    res.redirect('/sign-in')
+  }
 }
