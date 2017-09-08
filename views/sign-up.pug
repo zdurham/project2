@@ -1,14 +1,17 @@
-extends index
+extends main
 
 block content
   .flex-container
     p Hello
     p Please fill out the information below
-    form(method='POST' action="/api/users")
+    form#signin(method='POST' action="/sign-up" name="signup")
       .row
         div.input-field.col.s12
           input.validate#username(name="username" type="text")
           lable(for="username") Username
+        div.input-field.col.s12
+          input.validate#email(name="email" type="text")
+          label(for="email") Password
         div.input-field.col.s12
           input.validate#email(name="email" type="text")
           label(for="email") Email

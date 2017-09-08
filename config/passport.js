@@ -5,17 +5,36 @@ Reference for notes: https://code.tutsplus.com/tutorials/using-passport-with-seq
 *///////
 
 const bcrypt = require('bcrypt')
-const db = require('../models')
-
 
 
 module.exports = (passport, user) => {
   let User = user;
   let LocalStrategy = require('passport-local').Strategy
 
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+    });
+
+
+// used to deserialize the user
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then(function(user) {
+    if(user){
+      done(null, user.get());
+      }
+    else{
+      done(user.errors,null);
+      }
+  });
+});
+
+  
+
   passport.use('local-signup', new LocalStrategy({
-   usernameField: 'email',
+   usernameField: 'username',
    passwordField: 'password',
+   emailField: 'email',
+   descriptionField: 'description',
    passReqToCallback: true 
   },
 
@@ -26,18 +45,37 @@ module.exports = (passport, user) => {
 
     db.User.findOne({
       where: {
-        email: email
+        username: username
       }
-    })
+    }).then(user => {
+      if (user) {
+        return done(null, false, {
+          message: 'That email is already taken'
+        });
+      }
+      else {
+        const userPassword = generateHash(password)
+        
+        const data = {
+          username: username,
+          password: userPassword,
+          email: req.body.email,
+          description: req.body.description
+        };
 
+        db.User.create(data).then(function(newUser, created) {
+          if (!newUser) {
+            return done(null, false);
+          }
 
-
+          if (newUser) {
+            return done(null, newUser)
+          }
+        });
+      };
+    });
   }
-
   
-
-
-
 ));
 }
 
