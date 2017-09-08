@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     about: {
       type: DataTypes.TEXT,
     },
+    userId: {
+      type: DataTypes.TEXT
+    },
     lastLogin: {
       type: DataTypes.DATE
     }

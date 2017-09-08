@@ -68,7 +68,8 @@ passport.deserializeUser(function(id, done) {
           email: email,
           username: req.body.username,
           password: userPassword,
-          about: req.body.about
+          about: req.body.about,
+          userId: req.sessionID
         };
 
         db.User.create(data).then(function(newUser, created) {
@@ -77,7 +78,6 @@ passport.deserializeUser(function(id, done) {
           }
 
           if (newUser) {
-            req.session.userId = newUser._id 
             return done(null, newUser)
           }
         });

@@ -15,9 +15,18 @@ module.exports = (app, passport) => {
 
   // Displaying welcome
   app.get('/welcome', isLoggedIn, (req, res) => {
-    console.log('id', req.session.userId)
-      res.render("welcome")
-  }) 
+    console.log('id', req.session.id)
+    db.User.findOne({
+      where: {
+        userId: req.session.id
+      } 
+    }).then(dbUser => {
+      console.log(dbUser)
+      res.render('welcome', {username: dbUser.username})
+    })
+      
+    
+  })
 
   // Registering user
   app.post("/sign-up", passport.authenticate('local-signup', {
