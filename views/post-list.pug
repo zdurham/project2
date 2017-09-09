@@ -1,0 +1,14 @@
+extends main
+
+block content
+  .flex-container
+    .row
+      ul
+        each post in posts
+          li  
+            h1 #{post.title}
+            h3 #{post.subject}
+            p #{post.body}
+
+
+          
