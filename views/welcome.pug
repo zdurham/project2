@@ -3,5 +3,7 @@ extends main
 block content
   h1 Welcome, #{username}
 
-  form#logout(action="/logout" method='get')
+  form#logout(action='/logout' method='get')
     button.btn.waves-effect.waves-light#logout(type="submit") Logout
+  form#post(action='/make-post' method='get')
+    button.btn.waves-effect.waves-light#post(type='submit') Write a Post
