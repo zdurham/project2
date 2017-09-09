@@ -19,16 +19,16 @@ module.exports = (passport, user) => {
 
 
 // used to deserialize the user
-passport.deserializeUser(function(id, done) {
-  User.findById(id).then(function(user) {
-    if(user){
-      done(null, user.get());
-      }
-    else{
-      done(user.errors,null);
-      }
+  passport.deserializeUser(function(id, done) {
+    db.User.findById(id).then(function(user) {
+      if(user){
+        done(null, user.get());
+        }
+      else{
+        done(user.errors,null);
+        }
+    });
   });
-});
 
   
 
@@ -39,12 +39,6 @@ passport.deserializeUser(function(id, done) {
   },
 
   (req, email, password, done) => {
-    console.log('password:', password)
-    console.log('email:', email)
-    console.log('firstName: ', req.body.firstName)
-    console.log('lastName: ', req.body.lastName)
-    console.log('about', req.body.about)
-    console.log('username:', req.body.username)
     const generateHash = (password) => {
       return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
     }
@@ -97,13 +91,11 @@ passport.deserializeUser(function(id, done) {
       
     function(req, email, password, done) {
     
-      var User = user;
-    
       var isValidPassword = function(userpass, password) {
-        return bCrypt.compareSync(password, userpass);
+        return bcrypt.compareSync(password, userpass);
         }
     
-        User.findOne({
+        db.User.findOne({
           where: {
             email: email
           }
@@ -117,8 +109,16 @@ passport.deserializeUser(function(id, done) {
             return done(null, false, {
               message: 'Incorrect password.'
             });
-          }  
-          var userinfo = user.get();
+          }
+          
+
+          
+          
+          user.update({
+            userId: req.sessionID
+          })
+          var userinfo = user.get()
+          
           return done(null, userinfo);
   
         }).catch(function(err) {

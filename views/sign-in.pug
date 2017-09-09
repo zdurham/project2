@@ -4,14 +4,14 @@ block content
   .flex-container
     p Hello
     p Please fill out the information below
-    form#signin(method='POST' action="/sign-up" name="signup")
+    form#signin(method='POST' action="/sign-in" name="signin")
       .row
         div.input-field.col.s12
           input.validate#email(name="email" type="text")
           label(for="email") Email
         div.input-field.col.s12
-          input.validate#email(name="email" type="text")
-          label(for="email") Password
+          input.validate#password(name="password" type="text")
+          label(for="password") Password
         
         button.btn.waves-effect.waves-light#submit(type="submit") Submit
 
