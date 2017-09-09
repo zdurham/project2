@@ -12,8 +12,14 @@ module.exports = (app, passport) => {
     res.render("sign-in")
   })
 
+  // Logging out
+  app.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+      res.redirect('/')
+    })
+  })
 
-  // Displaying welcome
+  // Displaying welcome after successful login
   app.get('/welcome', isLoggedIn, (req, res) => {
     console.log('id', req.session.id)
     db.User.findOne({
@@ -24,8 +30,6 @@ module.exports = (app, passport) => {
       console.log(dbUser)
       res.render('welcome', {username: dbUser.username})
     })
-      
-    
   })
 
   // Registering user
@@ -39,7 +43,7 @@ module.exports = (app, passport) => {
   app.post("/sign-in", passport.authenticate('local-signin', {
     successRedirect: '/welcome',
     
-    failureRedirect: '/sign-up'
+    failureRedirect: '/sign-in'
    }));
 
 

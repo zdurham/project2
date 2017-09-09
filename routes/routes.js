@@ -5,21 +5,6 @@ module.exports = (app) => {
     res.render("main")
   })
 
-  // Displays the sign up page
-  app.get("/sign-up", (req, res) => {
-    res.render("sign-up")
-  })
-
-  // Post a user
-  app.post("/api/users", (req, res) => {
-    console.log(req.body)
-    db.User.create({
-      username: req.body.username,
-      email: req.body.email,
-      description: req.body.description
-    }).then(dbUser => res.render('welcome'))
-  })
-
   // Display all Users and their related comments and posts
   app.get("/api/users", (req, res) => {
     db.User.findAll({ include: db.Post, include: db.Comment}).then(dbUser => {
