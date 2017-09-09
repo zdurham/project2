@@ -3,5 +3,5 @@ extends main
 block content
   h1 Welcome, #{username}
 
-  form#logout
-    button.btn.waves-effect.waves-light#logout(action="/logout" type="submit") Logout
+  form#logout(action="/logout" method='get')
+    button.btn.waves-effect.waves-light#logout(type="submit") Logout

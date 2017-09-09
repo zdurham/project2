@@ -2,7 +2,7 @@ const db = require("../models")
 
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    res.render("main")
+    res.render("front")
   })
 
   // Display all Users and their related comments and posts
