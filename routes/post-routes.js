@@ -2,21 +2,23 @@ const db = require("../models")
 
 module.exports = (app) => {
 
-  // Get all posts with comments
+  app.get("/create-post", (req, res) => {
+    res.render('create-post')
+  })
+
   app.get("/api/posts", (req, res) => {
-    db.Post.findAll({include: db.Comment}).then((result) => {
+    db.Post.findAll({}).then((results) => {
       res.json(results);
     })
   })
 
-  // Add a post
-  app.post("/api/posts", (req, res) => {
+  app.post('/create-post', (req, res) => {
     db.Post.create({
       title: req.body.title,
       subject: req.body.subject,
       body: req.body.body,
-      image: req.body.image
+      image: req.body.image ? req.body.image : null,
+      UserId: req.user.id
     })
-  }).then(result => res.json(result))
-
+  })
 }

@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
 
 
 module.exports = (passport, user) => {
-  let User = user;
+  user = db.User;
   let LocalStrategy = require('passport-local').Strategy
 
   passport.serializeUser(function(user, done) {
@@ -31,7 +31,7 @@ module.exports = (passport, user) => {
   });
 
   
-
+  // Local sign-up
   passport.use('local-signup', new LocalStrategy({
    usernameField: 'email',
    passwordField: 'password',
@@ -80,6 +80,8 @@ module.exports = (passport, user) => {
   }
   
   ));
+
+  // Local sign-in
   passport.use('local-signin', new LocalStrategy(
     {
     // by default, local strategy uses uxsername and password, we will override with email
@@ -110,15 +112,12 @@ module.exports = (passport, user) => {
               message: 'Incorrect password.'
             });
           }
-          
 
-          
-          
           user.update({
             userId: req.sessionID
           })
           var userinfo = user.get()
-          
+          console.log(userinfo)
           return done(null, userinfo);
   
         }).catch(function(err) {

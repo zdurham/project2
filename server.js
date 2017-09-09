@@ -42,6 +42,9 @@ require("./config/passport.js")(passport, db.User)
 // Routing below
 //---------------------------------------------
 
+// Post Routes
+require('./routes/post-routes.js')(app)
+
 // API Routes
 require("./routes/comment-route.js")(app)
 

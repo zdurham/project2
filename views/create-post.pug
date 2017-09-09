@@ -1,0 +1,19 @@
+extends main
+
+
+block content
+  .flex-container
+    .row
+      form#createPost(action='/create-post' method='post' name='signin')
+        .row
+          div.input-field.col.s12
+            input.validate#title(name='title' type='text')
+            label(for='title') Title
+          div.input-field.col.s12
+            input.validate#subject(name='subject' type='text')
+            label(for='subject') Subject
+          div.input-field.col.s12
+            textarea.materialize-textarea.validate#body(name='body' type='text')
+            label(for='body') Body
+        button.btn.waves-effect.waves-light#submit(type="submit") Submit
+        
