@@ -3,10 +3,11 @@ extends main
 block content
   .flex-container
     .row
-      ul
+      ul.col.s12
         each post in posts
           li  
-            h1 #{post.title}
+            a(href=`/posts/${post.id}`)
+              h1 #{post.title}
             h3 #{post.subject}
             p #{post.body}
 

@@ -7,6 +7,26 @@ module.exports = (app) => {
     res.render('create-post')
   })
 
+  // Displays all posts on the posts list page
+  app.get('/posts', (req, res) => {
+    db.Post.findAll().then(dbPost => {
+      res.render('post-list', {posts: dbPost})
+    })    
+  })
+
+  // Display individual posts
+  app.get('/posts/:postid', (req, res) => {
+    db.Post.findOne({
+      where: {
+        id: req.params.postid 
+      },
+      include: db.User
+    }).then(post => {
+      console.log(post)
+      res.render('post', {post: post})
+    })
+  })
+
   // Puts posts into DB and links them to the user that is logged in
   app.post('/create-post', (req, res) => {
     db.Post.create({
@@ -24,7 +44,7 @@ module.exports = (app) => {
 
   // Gets posts in json format
   app.get("/api/posts", (req, res) => {
-    db.Post.findAll({}).then((results) => {
+    db.Post.findAll({include: db.User}).then((results) => {
       res.json(results);
     })
   })
