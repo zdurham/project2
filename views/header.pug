@@ -4,17 +4,38 @@ html
 		title Rally Point
 		link(rel = "stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
 		link(type="text/css", rel ="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
-		link(rel = 'stylesheet', href='assets/css/style.css')
-
-		script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
-		script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+		link(rel = 'stylesheet', href='/assets/css/style.css')
 		
 		
 		
 	body
+	
+		div(id ="modal1", class ="modal modal-fixed-footer")
+			div(class = "modal-content")
+				h4 Sign in
+				p A bunch of text
+				form(method="post", action="/")
+					label(for="username") User Name
+					input(name="username", type="text", id="username", placeholder = "username")
+
+					label(for="password") Password
+					input(name="password", type="password", id="password", placeholder ="Enter Your Password")
+					div(class="center-align")
+						input(type="submit", value ="Submit", class ="center-align")
+
+				br
+				br
+				
+				h4(class ="center-align") Want to create an account?
+				div(class ="center-align")
+					<a class="waves-effect waves-light btn modal-action modal-close", href ="/join">Join</a>
+
+			div(class ="modal-footer")
+				a(href="#!", class="modal-action modal-close waves-effect waves-green btn-flat") Close
 		ul(id="dropdown1", class="dropdown-content")
 			li
 				a(href ="#!") Requests
+			li(class ="divider")
 			li
 				a(href = "#!") Causes
 			li(class ="divider")
@@ -23,7 +44,8 @@ html
 
 		ul(id="dropdown2", class="dropdown-content")
 			li
-				a(href ="#!") User Profile
+				a(href ="/dashboard") User Profile
+			li(class ="divider")
 			li
 				a(href = "#!") Option 2
 			li(class ="divider")
@@ -44,7 +66,7 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
-						a(href ="#") login /sign up
+						a(class ="btn modal-trigger", href = "#modal1") login /sign up
 					li
 						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
 							i(class ="material-icons right") arrow_drop_down
