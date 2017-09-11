@@ -7,28 +7,28 @@ doctype html
 html
 	head
 		title Rally Point
+		// Linking Material Icons
 		link(rel = "stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-		link(type="text/css", rel ="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
-		link(rel = 'stylesheet', href='assets/css/style.css')
 
-		script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
-		script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
-		
-		
+		// Linking Materialize CSS
+		link(type="text/css", rel ="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+
+		// Linking local, unique styling
+		link(rel='stylesheet', href='assets/css/style.css')
 		
 	body
 		ul(id="dropdown1", class="dropdown-content")
 			li
-				a(href ="#!") Requests
+				a(href ="#") Requests
 			li
 				a(href = "#!") Causes
 			li(class ="divider")
 			li
-				a(href ="#!") Posts
+				a(href ="/posts") Posts
 
 		ul(id="dropdown2", class="dropdown-content")
 			li
-				a(href ="#!") User Profile
+				a(href ="/welcome") User Profile
 			li
 				a(href = "#!") Option 2
 			li(class ="divider")
@@ -49,24 +49,10 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
-						a(href ="#") login /sign up
+						a(href ="/sign-up") Sign-up
+					li
+						a(href='/sign-in') Sign-In
 					li
 						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
 							i(class ="material-icons right") arrow_drop_down
-		div(class = "slider")
-			ul(class="slides")
-				li
-					img(src="https://lorempixel.com/580/250/nature/1")
-					div(class="caption center-align")
-						h3 This is our big Tagline
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
-				li
-					img(src="https://lorempixel.com/580/250/nature/2")
-					div(class="caption left-align")
-						h3 Left Aligned Caption
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
-				li
-					img(src="https://lorempixel.com/580/250/nature/3")
-					div(class="caption right-align")
-						h3 Right Aligned Caption
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
+		

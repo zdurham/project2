@@ -10,13 +10,21 @@ block content
       p #{post.User.username}
     
     
-    p Comment on this post
-    form(action='/posts/' + post.id + '/comment' method='post')
-      div.input-field.col.s12
-      textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
-      button.btn.waves-effect.waves-light#submit(type="submit") Submit
+    #user
+      if user
+        p Comment on this post
+        form(action='/posts/' + post.id + '/comment' method='post')
+          div.input-field.col.s12
+          textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
+          button.btn.waves-effect.waves-light#submit(type="submit") Submit
+      else
+        p You must be signed in to comment on posts
 
+    // if there are posts, display them below
+    if post.Comments.length > 0
+      div#commentSection
+    else
+      div#noComments
+        p There are no comments on this post
 
-    // If there are posts, 
-    
       
