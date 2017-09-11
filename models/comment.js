@@ -12,6 +12,11 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     })
+    Comment.belongsTo(models.Post, {
+      foreignKey: {
+        allowNull: false
+      }
+    })
   }
   return Comment
 }

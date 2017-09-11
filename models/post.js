@@ -25,6 +25,9 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     })
+    Post.hasMany(models.Comment, {
+      onDelete: 'cascade'
+    }) 
   }
   
   return Post
