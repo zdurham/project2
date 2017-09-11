@@ -1,5 +1,5 @@
-
 //I am a line comment
+
 <!--I am a block Comment ASDSa 
 dasdas sad-->
 
@@ -7,28 +7,50 @@ doctype html
 html
 	head
 		title Rally Point
-		// Linking Material Icons
 		link(rel = "stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-
-		// Linking Materialize CSS
 		link(type="text/css", rel ="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
-
-		// Linking local, unique styling
-		link(rel='stylesheet', href='assets/css/style.css')
+		link(rel = 'stylesheet', href='../../static/assets/css/style.css')
+		
+		
 		
 	body
+	
+		div(id ="modal1", class ="modal modal-fixed-footer")
+			div(class = "modal-content")
+				h4 Sign in
+				p A bunch of text
+				form(method="post", action="/")
+					label(for="username") User Name
+					input(name="username", type="text", id="username", placeholder = "username")
+
+					label(for="password") Password
+					input(name="password", type="password", id="password", placeholder ="Enter Your Password")
+					div(class="center-align")
+						input(type="submit", value ="Submit", class ="center-align")
+
+				br
+				br
+				
+				h4(class ="center-align") Want to create an account?
+				div(class ="center-align")
+					<a class="waves-effect waves-light btn modal-action modal-close", href ="/join">Join</a>
+
+			div(class ="modal-footer")
+				a(href="#!", class="modal-action modal-close waves-effect waves-green btn-flat") Close
 		ul(id="dropdown1", class="dropdown-content")
 			li
-				a(href ="#") Requests
+				a(href ="#!") Requests
+			li(class ="divider")
 			li
 				a(href = "#!") Causes
 			li(class ="divider")
 			li
-				a(href ="/posts") Posts
+				a(href ="#!") Posts
 
 		ul(id="dropdown2", class="dropdown-content")
 			li
-				a(href ="/welcome") User Profile
+				a(href ="#!") User Profile
+			li(class ="divider")
 			li
 				a(href = "#!") Option 2
 			li(class ="divider")
@@ -49,10 +71,24 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
-						a(href ="/sign-up") Sign-up
-					li
-						a(href='/sign-in') Sign-In
+						a(class ="btn modal-trigger", href = "#modal1") login /sign up
 					li
 						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
 							i(class ="material-icons right") arrow_drop_down
-		
+		div(class = "slider")
+			ul(class="slides")
+				li
+					img(src="https://lorempixel.com/580/250/nature/1")
+					div(class="caption center-align")
+						h3 This is our big Tagline
+						h5(class = "light grey-text text-lighten-3") Here's our small slogan
+				li
+					img(src="https://lorempixel.com/580/250/nature/2")
+					div(class="caption left-align")
+						h3 Left Aligned Caption
+						h5(class = "light grey-text text-lighten-3") Here's our small slogan
+				li
+					img(src="https://lorempixel.com/580/250/nature/3")
+					div(class="caption right-align")
+						h3 Right Aligned Caption
+						h5(class = "light grey-text text-lighten-3") Here's our small slogan
