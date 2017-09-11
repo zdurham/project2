@@ -23,7 +23,11 @@ module.exports = (app) => {
       include: [{model: db.User}, {model: db.Comment}]
     }).then(post => {
       console.log(post)
-      res.render('post', {post: post})
+      res.render('post', 
+      {
+        post: post,
+        user: req.user.id ? req.user.id : null
+      })
     })
   })
 
