@@ -1,14 +1,52 @@
-/* Custom Stylesheet */
-/**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
-
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
 	font-size: inherit;
+}
+.nav-wrapper{
+	background-color:#383481;
+}
+.nav-wrapper h2{
+	position: relative;
+	margin-top:0px;
+	font-family:helvetica;
+}
+.underRow{
+	background-color:#006DE7;
+	height:20px;
+	margin:0px;
+	padding:0px;
+}
+.slider{
+	padding:0px;
+	margin:0px;
+}
+
+
+/*Post content*/
+.postIndiv{
+	border-bottom:1px solid;
+	padding:0px;
+	background-color:lightgrey;
+}
+.postLCol{
+	border-right:1px solid black;
+}
+.headerColor{
+	background-color:#383481;
+
+}
+.headerColor h4{
+	color:white;
+
+}
+
+/*Footer content*/
+.page-footer{
+	background-color:#FF5E00;
+	color:green;
+}
+.footer-copyright{
+	background-color:red;
 }
