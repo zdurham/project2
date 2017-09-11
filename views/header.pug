@@ -13,6 +13,8 @@ html
 
 		script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
 		script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+		script(type="text/javascript", src="../assets/javascript/news.js")
+		script(type="text/javascript", src="../assets/javascript/slider.js")
 		
 		
 		
@@ -55,18 +57,14 @@ html
 							i(class ="material-icons right") arrow_drop_down
 		div(class = "slider")
 			ul(class="slides")
-				li
-					img(src="https://lorempixel.com/580/250/nature/1")
-					div(class="caption center-align")
-						h3 This is our big Tagline
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
-				li
-					img(src="https://lorempixel.com/580/250/nature/2")
-					div(class="caption left-align")
-						h3 Left Aligned Caption
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
-				li
-					img(src="https://lorempixel.com/580/250/nature/3")
-					div(class="caption right-align")
-						h3 Right Aligned Caption
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
+				each news in newsStories
+					li= news
+						img(src=`#{news.urlToImage}`)
+						div(class="caption right-align")
+							a(href=`#{news.url}`)
+							h3 #{news.title}
+				else
+					li There are no values
+				
+				
+				
