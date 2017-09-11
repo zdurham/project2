@@ -9,11 +9,14 @@ block content
       p Signature below
       p #{post.User.username}
     
-    // Put a conditional here
+    
     p Comment on this post
-    form(action='/comment' method='post')
+    form(action='/posts/' + post.id + '/comment' method='post')
       div.input-field.col.s12
       textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
-    button.btn.waves-effect.waves-light#submit(type="submit") Submit
+      button.btn.waves-effect.waves-light#submit(type="submit") Submit
 
+
+    // If there are posts, 
+    
       

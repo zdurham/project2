@@ -20,7 +20,7 @@ module.exports = (app) => {
       where: {
         id: req.params.postid 
       },
-      include: db.User
+      include: [{model: db.User}, {model: db.Comment}]
     }).then(post => {
       console.log(post)
       res.render('post', {post: post})
@@ -44,7 +44,7 @@ module.exports = (app) => {
 
   // Gets posts in json format
   app.get("/api/posts", (req, res) => {
-    db.Post.findAll({include: db.User}).then((results) => {
+    db.Post.findAll({include: [{model: db.User},{model: db.Comment}]}).then((results) => {
       res.json(results);
     })
   })
