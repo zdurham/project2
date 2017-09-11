@@ -26,7 +26,6 @@ module.exports = (app) => {
       res.render('post', 
       {
         post: post,
-        user: req.user.id ? req.user.id : null
       })
     })
   })

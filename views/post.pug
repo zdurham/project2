@@ -10,8 +10,8 @@ block content
       p #{post.User.username}
     
     
-    #user
-      if user
+    
+      if user.id
         p Comment on this post
         form(action='/posts/' + post.id + '/comment' method='post')
           div.input-field.col.s12
