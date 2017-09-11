@@ -15,4 +15,14 @@ module.exports = (app) => {
       res.json(dbUser)
     })
   })
+
+  // test page delete before merging
+  app.get('/test', (req, res) =>{
+      res.render("test")
+      })
+  app.get('/dashboard', (req, res)=>{
+    res.render("dashboard")
+  })
+
 }
+
