@@ -1,6 +1,4 @@
-extends main
 
-block content
 //- zach original
   .flex-container
     div.post
@@ -24,31 +22,45 @@ block content
 extends main
 
 block content
-  div(class ="container")
-    div(class ="row headerColor")
-      div(class ="col l12 center-align")
+  div.container
+    div.row.headerColor
+      div.col.l12.center-align
         h4 #{post.title}
-    div(class ="row")
-      div(class="col l12 postIndiv")
-        div(class ="row")
-          div(class ="col l3 postLCol")
-            div(class = "row center-align")
+    div.row
+      div.col.l12.postIndiv
+        div.row
+          div.col.l3.postLCol
+            div.row.center-align
                 h5 #{post.User.username}
-            div(class = "row center-align")
+            div.row.center-align
                 img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
-          div(class ="col l9")
+          div.col.s9
             h5 #{post.subject}
             p #{post.body}
             div(class ="divide")
             hr
             p Signature Below
-        div(class ="row")
-          div(class="col l12 orange")
-            p Reply to this post
-            form(action='/posts/' + post.id + '/comment' method='post')
-              div.input-field.col.s12
-              textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
-              button.btn.waves-effect.waves-light#submit(type="submit") Submit
+        div.row
+          div.col.l12.orange
+            if user
+              p Reply to this post
+              form(action='/posts/' + post.id + '/comment' method='post')
+                div.input-field.col.s12
+                textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
+                button.btn.waves-effect.waves-light#submit(type="submit") Submit
+            else
+              p You must be logged in to comment
+        div.row
+          div.col.l12.orange
+            if comments.length > 0
+              ul
+                each comment in comments
+                  li 
+                    p #{comment.User.username}
+                    p #{comment.body}
+            else
+              p There are no comments on this post
+
 
 
      

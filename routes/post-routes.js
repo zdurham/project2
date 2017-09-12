@@ -14,7 +14,7 @@ module.exports = (app) => {
     })    
   })
 
-  // Display individual posts
+  // Display individual post page with comments
   app.get('/posts/:postid', (req, res) => {
     db.Post.findOne({
       where: {
@@ -29,7 +29,8 @@ module.exports = (app) => {
       res.render('post', 
       {
         post: post,
-        user: req.user ? true : false
+        user: req.user ? true : false,
+        comments: post.Comments
       })
     })
   })

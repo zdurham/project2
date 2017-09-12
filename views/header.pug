@@ -14,21 +14,21 @@ html
 			div(class = "modal-content")
 				h4 Sign in
 				p A bunch of text
-				form(method="post", action="/")
-					label(for="username") User Name
-					input(name="username", type="text", id="username", placeholder = "username")
+				form(method="post", action="/sign-in")
+					label(for="username") Email
+					input#email(name="email" type="text" placeholder = "email")
 
 					label(for="password") Password
-					input(name="password", type="password", id="password", placeholder ="Enter Your Password")
+					input#password(name="password" type="password", placeholder ="Enter Your Password")
 					div(class="center-align")
-						input(type="submit", value ="Submit", class ="center-align")
+						button.btn.waves-green.waves-effect(type="submit", class ="center-align") Submit
 
 				br
 				br
 				
 				h4(class ="center-align") Want to create an account?
 				div(class ="center-align")
-					<a class="waves-effect waves-light btn modal-action modal-close", href ="/join">Join</a>
+					<a class="waves-effect waves-light btn modal-action modal-close", href ="/sign-up">Join</a>
 
 			div(class ="modal-footer")
 				a(href="#!", class="modal-action modal-close waves-effect waves-green btn-flat") Close
@@ -46,11 +46,9 @@ html
 			li
 				a(href ="/dashboard") User Profile
 			li(class ="divider")
-			li
-				a(href = "#!") Option 2
 			li(class ="divider")
 			li
-				a(href ="#!") Sign Out
+				a(href ="/logout") Sign Out
 		nav
 			div(class="nav-wrapper")
 				h2(class ="left valign-wrapper") Rally Point
@@ -66,25 +64,13 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
-						a(class ="btn modal-trigger", href = "#modal1") login /sign up
-					li
-						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
-							i(class ="material-icons right") arrow_drop_down
+						a(class ="btn modal-trigger", href = "#modal1") login / sign up
+					if user
+						li
+							a(class ="dropdown-button", href="/dashboard", data-activates ='dropdown2') #{user.username}
+								i(class ="material-icons right") arrow_drop_down
+					else
+						li
+							a(class ="dropdown-button", href="", data-activates ='dropdown2') User Profile
+								i(class ="material-icons right") arrow_drop_down
 		div(class = "row underRow")
-		div(class = "slider")
-			ul(class="slides")
-				li
-					img(src="https://lorempixel.com/580/250/nature/1")
-					div(class="caption center-align")
-						h3 This is our big Tagline
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
-				li
-					img(src="https://lorempixel.com/580/250/nature/2")
-					div(class="caption left-align")
-						h3 Left Aligned Caption
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan
-				li
-					img(src="https://lorempixel.com/580/250/nature/3")
-					div(class="caption right-align")
-						h3 Right Aligned Caption
-						h5(class = "light grey-text text-lighten-3") Here's our small slogan

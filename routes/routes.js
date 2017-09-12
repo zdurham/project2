@@ -3,9 +3,14 @@ const db = require("../models")
 module.exports = (app) => {
   
   // Displays the front page
-  app.get('/', (req, res) => {
-    res.render("front")
-  })
+  // app.get('/', (req, res) => {
+  //   if (req.user) {
+  //     res.render('front', {user: req.user})
+  //   }
+  //   else {
+  //     res.render('front')
+  //   }
+  // })
 
   
 
@@ -15,14 +20,5 @@ module.exports = (app) => {
       res.json(dbUser)
     })
   })
-
-  // test page delete before merging
-  app.get('/test', (req, res) =>{
-      res.render("test")
-      })
-  app.get('/dashboard', (req, res)=>{
-    res.render("dashboard")
-  })
-
 }
 

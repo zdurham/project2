@@ -3,6 +3,7 @@ const pug = require('pug')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
+const env = require('dotenv').load();
 const passport = require('passport')
 const db = require("./models")
 
@@ -42,11 +43,17 @@ require("./config/passport.js")(passport, db.User)
 // Routing below
 //---------------------------------------------
 
+// News Route
+
+
 // Post Routes
 require('./routes/post-routes.js')(app)
 
 // API Routes
 require("./routes/comment-route.js")(app)
+
+// User Routes
+require('./routes/user-routes.js')(app)
 
 // Authentication route
 require("./routes/auth.js")(app, passport)
@@ -54,6 +61,7 @@ require("./routes/auth.js")(app, passport)
 // General Routes
 require("./routes/routes.js")(app)
 
+require('./routes/news-route.js')(app)
 //---------------------------------------------
 // Start server code below
 //---------------------------------------------
