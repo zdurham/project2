@@ -4,7 +4,12 @@ module.exports = (app) => {
   
   // Displays the front page
   app.get('/', (req, res) => {
-    res.render("front")
+    if (req.user) {
+      res.render('front', {user: req.user})
+    }
+    else {
+      res.render('front')
+    }
   })
 
   

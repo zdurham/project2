@@ -1,6 +1,4 @@
-extends main
 
-block content
 //- zach original
   .flex-container
     div.post
@@ -53,6 +51,16 @@ block content
             else
               p You must be logged in to comment
         div.row
-        
+          div.col.l12.orange
+            if comments.length > 0
+              ul
+                each comment in comments
+                  li 
+                    p #{comment.User.username}
+                    p #{comment.body}
+            else
+              p There are no comments on this post
+
+
 
      

@@ -46,11 +46,9 @@ html
 			li
 				a(href ="/dashboard") User Profile
 			li(class ="divider")
-			li
-				a(href = "#!") Option 2
 			li(class ="divider")
 			li
-				a(href ="#!") Sign Out
+				a(href ="/logout") Sign Out
 		nav
 			div(class="nav-wrapper")
 				h2(class ="left valign-wrapper") Rally Point
@@ -66,10 +64,15 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
-						a(class ="btn modal-trigger", href = "#modal1") login /sign up
-					li
-						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
-							i(class ="material-icons right") arrow_drop_down
+						a(class ="btn modal-trigger", href = "#modal1") login / sign up
+					if user
+						li
+							a(class ="dropdown-button", href="/dashboard", data-activates ='dropdown2') #{user.username}
+								i(class ="material-icons right") arrow_drop_down
+					else
+						li
+							a(class ="dropdown-button", href="", data-activates ='dropdown2') User Profile
+								i(class ="material-icons right") arrow_drop_down
 		div(class = "row underRow")
 		div(class = "slider")
 			ul(class="slides")

@@ -16,8 +16,7 @@ module.exports = (app, passport) => {
 
   // Displaying welcome after successful login
   app.get('/dashboard', isLoggedIn, (req, res) => {
-    console.log('id', 'this is working')
-      res.render('dashboard', {username: req.user.username})
+      res.render('dashboard', {user: req.user})
     })
 
   // Registering user
