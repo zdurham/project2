@@ -6,13 +6,13 @@ block content
 		div(class="row")
 			div(class ="col s12 teal")
 				h3 Profile:
-		div.row
-			div.col.s6.blue
-				h5 Username: #{user.username}
+		div(class = "row")
+			div(class = "col s6 blue")
+				h5 Username: testUser.userName
 			div(class = "col s6 orange")
 				img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100", right-align)
 		div(class = "row")
-			h5 Real Name: #{user.firstName} #{user.lastName} 
+			h5 Real Name: (userFirstName + userLastName)
 		div(class = "row")
 			div(class ="col s6")
 				h5 Country: (userCountry)

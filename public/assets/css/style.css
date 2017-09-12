@@ -22,9 +22,13 @@
 	padding:0px;
 	margin:0px;
 }
-
-
+/*Post redo*/
+.container > .postCap{
+	padding-bottom:0px;
+}
 /*Post content*/
+
+
 .postIndiv{
 	padding:0px;
 	background-color:lightgrey;
@@ -43,9 +47,24 @@
 	padding-left:10px;
 }
 
+/*dashboard content*/
+.commentListProfile .row{
+
+}
+.blueBox{
+	border-top: 15px solid #f15f22;
+	background-image:url("/assets/images/pattern_blue.jpg");
+	color:white;
+	text-shadow: 4px 2px black;
+	border-radius:0px 0px 15px 15px;
+	padding-top: 0px;
+	
+}
+
 /*Footer content*/
 .page-footer{
 	background-color:#FF5E00;
+	background-image:url("/assets/images/pattern_orange.jpg");
 	color:green;
 }
 .footer-copyright{
