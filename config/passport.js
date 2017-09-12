@@ -49,9 +49,7 @@ module.exports = (passport, user) => {
       }
     }).then(user => {
       if (user) {
-        return done(null, false, {
-          message: 'That email is already taken'
-        });
+        return done(null, false, req.flash('signUpFailure', 'That email address is already taken'));
       }
       else {
         const userPassword = generateHash(password)

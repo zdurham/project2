@@ -1,13 +1,17 @@
+// Dependencies
 const express = require('express')
 const pug = require('pug')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
 const env = require('dotenv').load();
+const flash = require('connect-flash')
 const passport = require('passport')
 const db = require("./models")
 
-
+//---------------------------------------------
+// Setting up Express server and Pug
+//---------------------------------------------
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -23,6 +27,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(session({ secret: 'totallysecret',resave: true, saveUninitialized:true})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
+app.use(flash())
 
 //---------------------------------------------
 // Body Parser Code below

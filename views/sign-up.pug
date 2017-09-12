@@ -4,6 +4,9 @@ block content
   .flex-container
     p Hello
     p Please fill out the information below
+    
+    p #{message}
+
     form#signup(method='POST' action="/sign-up" name="signup")
       .row
         div.input-field.col.s6

@@ -4,7 +4,7 @@ module.exports = (app, passport) => {
   
   // Displaying sign up page
   app.get("/sign-up", (req, res) => {
-    res.render("sign-up")
+    res.render("sign-up", {message:  req.flash('signUpFailure')})
   })  
 
   // Logging out
@@ -23,14 +23,18 @@ module.exports = (app, passport) => {
   app.post("/sign-up", passport.authenticate('local-signup', {
    successRedirect: '/dashboard',
    
-   failureRedirect: '/sign-up'
+   failureRedirect: '/sign-up',
+
+   failureFlash: true
   }));
 
   // Returning user signs in
   app.post("/sign-in", passport.authenticate('local-signin', {
     successRedirect: '/dashboard',
     
-    failureRedirect: '/'
+    failureRedirect: '/',
+
+    failureFlash: true
    }));
 
 
