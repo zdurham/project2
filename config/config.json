@@ -1,21 +1,21 @@
 {
   "development": {
-    "username": "codingbootcamp",
-    "password": null,
+    "username": "root",
+    "password": "UltraMagnus86",
     "database": "project2",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
+    "password": "UltraMagnus86",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "UltraMagnus86",
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"

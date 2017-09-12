@@ -26,7 +26,6 @@
 
 /*Post content*/
 .postIndiv{
-	border-bottom:1px solid;
 	padding:0px;
 	background-color:lightgrey;
 }
@@ -35,11 +34,13 @@
 }
 .headerColor{
 	background-color:#383481;
-
+	padding-bottom:0px;
+	margin:0px;
+	padding:0px;
 }
 .headerColor h4{
 	color:white;
-
+	padding-left:10px;
 }
 
 /*Footer content*/
