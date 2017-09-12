@@ -20,13 +20,16 @@ module.exports = (app) => {
       where: {
         id: req.params.postid 
       },
-      include: [{model: db.User}, {model: db.Comment}]
+      include: [{model: db.User}, {
+        model: db.Comment,
+        include: db.User
+      }]
     }).then(post => {
-      console.log(post)
+      console.log(req.user)
       res.render('post', 
       {
         post: post,
-        user: req.user.id ? req.user.id : null
+        user: req.user ? true : false
       })
     })
   })
@@ -39,7 +42,7 @@ module.exports = (app) => {
       body: req.body.body,
       image: req.body.image ? req.body.image : null,
       UserId: req.user.id
-    })
+    }).then(res.redirect('/posts'))
   })
 
   //---------------------------------------------
@@ -48,8 +51,10 @@ module.exports = (app) => {
 
   // Gets posts in json format
   app.get("/api/posts", (req, res) => {
-    db.Post.findAll({include: [{model: db.User},{model: db.Comment}]}).then((results) => {
+    db.Post.findAll({include: [{model: db.User},{model: db.Comment, include: db.User}]}).then((results) => {
       res.json(results);
     })
   })
+
+  
 }
