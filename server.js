@@ -43,9 +43,6 @@ require("./config/passport.js")(passport, db.User)
 // Routing below
 //---------------------------------------------
 
-// News Route
-
-
 // Post Routes
 require('./routes/post-routes.js')(app)
 
@@ -61,7 +58,7 @@ require("./routes/auth.js")(app, passport)
 // General Routes
 require("./routes/routes.js")(app)
 
-require('./routes/news-route.js')(app)
+
 //---------------------------------------------
 // Start server code below
 //---------------------------------------------
