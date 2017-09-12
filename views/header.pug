@@ -14,21 +14,21 @@ html
 			div(class = "modal-content")
 				h4 Sign in
 				p A bunch of text
-				form(method="post", action="/")
-					label(for="username") User Name
-					input(name="username", type="text", id="username", placeholder = "username")
+				form(method="post", action="/sign-in")
+					label(for="username") Email
+					input#email(name="email" type="text" placeholder = "email")
 
 					label(for="password") Password
-					input(name="password", type="password", id="password", placeholder ="Enter Your Password")
+					input#password(name="password" type="password", placeholder ="Enter Your Password")
 					div(class="center-align")
-						input(type="submit", value ="Submit", class ="center-align")
+						button.btn.waves-green.waves-effect(type="submit", class ="center-align") Submit
 
 				br
 				br
 				
 				h4(class ="center-align") Want to create an account?
 				div(class ="center-align")
-					<a class="waves-effect waves-light btn modal-action modal-close", href ="/join">Join</a>
+					<a class="waves-effect waves-light btn modal-action modal-close", href ="/sign-up">Join</a>
 
 			div(class ="modal-footer")
 				a(href="#!", class="modal-action modal-close waves-effect waves-green btn-flat") Close

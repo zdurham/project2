@@ -7,11 +7,6 @@ module.exports = (app, passport) => {
     res.render("sign-up")
   })  
 
-  // Displaying sign-in page
-  app.get("/sign-in", (req, res) => {
-    res.render("sign-in")
-  })
-
   // Logging out
   app.get("/logout", (req, res) => {
     req.session.destroy((err) => {
@@ -20,21 +15,21 @@ module.exports = (app, passport) => {
   })
 
   // Displaying welcome after successful login
-  app.get('/welcome', isLoggedIn, (req, res) => {
-    console.log('id', req.session.id)
-      res.render('welcome', {username: req.user.username})
+  app.get('/dashboard', isLoggedIn, (req, res) => {
+    console.log('id', 'this is working')
+      res.render('dashboard', {username: req.user.username})
     })
 
   // Registering user
   app.post("/sign-up", passport.authenticate('local-signup', {
-   successRedirect: '/welcome',
+   successRedirect: '/dashboard',
    
    failureRedirect: '/sign-up'
   }));
 
   // Returning user signs in
   app.post("/sign-in", passport.authenticate('local-signin', {
-    successRedirect: '/welcome',
+    successRedirect: '/dashboard',
     
     failureRedirect: '/sign-in'
    }));
@@ -43,6 +38,6 @@ module.exports = (app, passport) => {
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
       return next();
-    res.redirect('/sign-in')
+    res.redirect('/')
   }
 }

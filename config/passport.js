@@ -113,9 +113,7 @@ module.exports = (passport, user) => {
             });
           }
 
-          user.update({
-            userId: req.sessionID
-          })
+          
           var userinfo = user.get()
           console.log(userinfo)
           return done(null, userinfo);
