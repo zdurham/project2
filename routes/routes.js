@@ -3,14 +3,14 @@ const db = require("../models")
 module.exports = (app) => {
   
   // Displays the front page
-  app.get('/', (req, res) => {
-    if (req.user) {
-      res.render('front', {user: req.user})
-    }
-    else {
-      res.render('front')
-    }
-  })
+  // app.get('/', (req, res) => {
+  //   if (req.user) {
+  //     res.render('front', {user: req.user})
+  //   }
+  //   else {
+  //     res.render('front')
+  //   }
+  // })
 
   
 
