@@ -28,10 +28,4 @@ module.exports = (app) => {
       //   }
      });
    });
-     app.get("/test", (req, res) => {
-      res.render("test")
-  })
-   app.get("/", (req, res) => {
-    res.render("front")
-  })
 }
