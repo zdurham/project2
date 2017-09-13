@@ -7,6 +7,7 @@ Reference for notes: https://code.tutsplus.com/tutorials/using-passport-with-seq
 
 const db = require('../models')
 const bcrypt = require('bcrypt')
+const { check, validationResult } = require('express-validator/check');
 
 
 module.exports = (passport, user) => {
@@ -91,13 +92,13 @@ module.exports = (passport, user) => {
       
     function(req, email, password, done) {
       err = validationResult(req).mapped()
-      
+      console.log(err)
       if (err) {
         if (err.email) {
-          req.flash('badEmail', 'Please enter a valid email address')
+          return done(null, false, req.flash('badEmail', 'Please enter a valid email address'))
         }
         if (err.password) {
-          req.flash('badPass', 'Your password is required')
+          return done(null, false, req.flash('badPass', 'Your password is required'))
         }
       }
 

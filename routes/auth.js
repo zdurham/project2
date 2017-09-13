@@ -42,12 +42,10 @@ module.exports = (app, passport) => {
 
   // Returning user signs in
   app.post("/sign-in", [
-
     // check the email
     check('email').isEmail().withMessage('Email is not valid!'), 
     // check the password
     check('password').not().isEmpty().withMessage('You must fill out the password field to continue')], 
-  
     passport.authenticate('local-signin', {
       successRedirect: '/dashboard',
       
