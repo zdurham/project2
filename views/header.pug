@@ -24,7 +24,9 @@ html
 				a(href = "#!") Causes
 			li(class ="divider")
 			li
-				a(href ="/posts") Posts
+
+				a(href="/posts") Posts
+
 
 		ul(id="dropdown2", class="dropdown-content")
 			li
@@ -49,10 +51,15 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
-						a(href ="/sign-up") Sign-up
-					li
-						a(href='/sign-in') Sign-In
-					li
-						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
-							i(class ="material-icons right") arrow_drop_down
-		
+
+						a(href = "/sign-in") login / register
+					if user
+						li
+							a(class ="dropdown-button", href="/dashboard", data-activates ='dropdown2') #{user.username}
+								i(class ="material-icons right") arrow_drop_down
+					else
+						li
+							a(class ="dropdown-button", href="", data-activates ='dropdown2') User Profile
+								i(class ="material-icons right") arrow_drop_down
+		div(class = "row underRow")
+

@@ -7,6 +7,7 @@ Reference for notes: https://code.tutsplus.com/tutorials/using-passport-with-seq
 
 const db = require('../models')
 const bcrypt = require('bcrypt')
+const { check, validationResult } = require('express-validator/check');
 
 
 module.exports = (passport, user) => {
@@ -49,9 +50,7 @@ module.exports = (passport, user) => {
       }
     }).then(user => {
       if (user) {
-        return done(null, false, {
-          message: 'That email is already taken'
-        });
+        return done(null, false, req.flash('signUpFailure', 'That email address is already taken'));
       }
       else {
         const userPassword = generateHash(password)
@@ -92,38 +91,34 @@ module.exports = (passport, user) => {
     },
       
     function(req, email, password, done) {
-    
+
+
       var isValidPassword = function(userpass, password) {
         return bcrypt.compareSync(password, userpass);
         }
     
-        db.User.findOne({
-          where: {
-            email: email
-          }
-        }).then(function(user) {
-          if (!user) {
-            return done(null, false, {
-              message: 'Email does not exist'
-            });
-          }
-          if (!isValidPassword(user.password, password)) {
-            return done(null, false, {
-              message: 'Incorrect password.'
-            });
-          }
+      db.User.findOne({
+        where: {
+          email: email
+        }
+      }).then(function(user) {
+        
+        if (!user) {
+          return done(null, false, req.flash('emailErr', 'Email does not exist'));
+        }
+        if (!isValidPassword(user.password, password)) {
+          return done(null, false, req.flash('passErr' , 'Incorrect password.'));
+        }
 
-          
-          var userinfo = user.get()
-          console.log(userinfo)
-          return done(null, userinfo);
-  
-        }).catch(function(err) {
-          console.log("Error:", err);
-            return done(null, false, {
-              message: 'Something went wrong with your Signin'
-            });
-        });
+        
+        var userinfo = user.get()
+        console.log(userinfo)
+        return done(null, userinfo);
+
+      }).catch(function(err) {
+        console.log("Error:", err);
+          return done(null, false, req.flash('err', 'Something went wrong with your sign-ing'));
+      });
     }
    ));
 }
