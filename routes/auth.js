@@ -32,12 +32,21 @@ module.exports = (app, passport) => {
     })
   
   // Registering user
-  app.post("/sign-up", passport.authenticate('local-signup', {
-   successRedirect: '/dashboard',
+  app.post("/sign-up", [
+    check('email').isEmail().withMessage('Email is not valid!'), 
+    check('password').not().isEmpty().withMessage('This is a required field'),
+    check('username').not().isEmpty().withMessage('This is a required field'),
+    check('firstName').not().isEmpty().withMessage('This is a required field'),
+    check('lastName').not().isEmpty().withMessage('This is a required field'),
+    check('password2')
+  
+    ], 
+    passport.authenticate('local-signup', {
+      successRedirect: '/dashboard',
    
-   failureRedirect: '/sign-up',
+      failureRedirect: '/sign-up',
 
-   failureFlash: true
+      failureFlash: true
   }));
 
   // Returning user signs in
@@ -46,7 +55,25 @@ module.exports = (app, passport) => {
     check('email').isEmail().withMessage('Email is not valid!'), 
     // check the password
     check('password').not().isEmpty().withMessage('You must fill out the password field to continue')], 
-    passport.authenticate('local-signin', {
+
+    (req, res, next) => {
+      err = validationResult(req).array()
+      
+      console.log(err)
+      
+      if (err.length > 0) {
+        if (err[0]) {
+          req.flash('badEmail', 'Please enter a valid email address')
+        }
+        if (err[1]) {
+          req.flash('badPass', 'Your password is required')
+        }
+        return res.redirect('/sign-in')
+      }
+      else {
+        next()
+      }
+    }, passport.authenticate('local-signin', {
       successRedirect: '/dashboard',
       
       failureRedirect: '/sign-in',
