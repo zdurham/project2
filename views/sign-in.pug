@@ -2,17 +2,34 @@ extends main
 
 block content
   .flex-container
-    p Hello
-    p Please fill out the information below
-    form#signin(method='POST' action="/sign-in" name="signin" autocomplete="off")
-      .row
-        div.input-field.col.s12
-          input.validate#email(name="email" type="text")
-          label(for="email") Email
-        div.input-field.col.s12
-          input.validate#password(name="password" type="password")
-          label(for="password") Password
-        
-        button.btn.waves-effect.waves-light#submit(type="submit") Submit
+    .row
+      .col.s16
+        h3.title Login
+        p A bunch of text
+        // not an email
+        if badEmail
+          p.err #{badEmail}
+        // not found 
+        if emailErr
+          p.err #{emailErr}
+        form(method='post' action='/sign-in')
+          label(for="username") Email
+          input#email(name="email" type="text" placeholder = "email")
 
-  
+          // no password at all
+          if badPass
+            p.err #{badPass}
+          // password does not match
+          if passErr 
+            p.err #{passErr}
+          label(for="password") Password
+          input#password(name="password" type="password", placeholder ="Enter Your Password")
+          div(class="center-align")
+            button#signin.btn.waves-green.waves-effect.center-align(type="submit") Submit
+            
+        br
+        br
+        
+        h4(class ="center-align") New to RallyPoint? Make an account!
+        div(class ="center-align")
+          <a class="waves-effect waves-light btn modal-action modal-close", href ="/sign-up">Join</a>

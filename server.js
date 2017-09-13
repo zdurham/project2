@@ -1,13 +1,18 @@
+// Dependencies
 const express = require('express')
 const pug = require('pug')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
 const env = require('dotenv').load();
+const flash = require('connect-flash')
 const passport = require('passport')
 const db = require("./models")
+const expressValidator = require('express-validator')
 
-
+//---------------------------------------------
+// Setting up Express server and Pug
+//---------------------------------------------
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -24,6 +29,8 @@ app.use(session({ secret: 'totallysecret',resave: true, saveUninitialized:true})
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+app.use(flash())
+
 //---------------------------------------------
 // Body Parser Code below
 //---------------------------------------------
@@ -32,6 +39,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type: 'application/vnd.api+json' }))
+
+app.use(expressValidator())
 
 //---------------------------------------------
 // Passport configuration below
@@ -42,9 +51,6 @@ require("./config/passport.js")(passport, db.User)
 //---------------------------------------------
 // Routing below
 //---------------------------------------------
-
-// News Route
-
 
 // Post Routes
 require('./routes/post-routes.js')(app)
@@ -61,7 +67,7 @@ require("./routes/auth.js")(app, passport)
 // General Routes
 require("./routes/routes.js")(app)
 
-require('./routes/news-route.js')(app)
+
 //---------------------------------------------
 // Start server code below
 //---------------------------------------------
