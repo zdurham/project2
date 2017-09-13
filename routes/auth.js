@@ -47,29 +47,14 @@ module.exports = (app, passport) => {
     check('email').isEmail().withMessage('Email is not valid!'), 
     // check the password
     check('password').not().isEmpty().withMessage('You must fill out the password field to continue')], 
-    
-    (req, res) => {
-    err = validationResult(req).mapped()
-
-    if (err) {
-      if (err.email) {
-        req.flash('badEmail', 'Please enter a valid email address')
-      }
-      if (err.password) {
-        req.flash('badPass', 'Your password is required')
-      }
-      
-      return res.render('/sign-in', {})
-    }
-    
+  
     passport.authenticate('local-signin', {
       successRedirect: '/dashboard',
       
       failureRedirect: '/sign-in',
   
       failureFlash: true
-    });
-  })
+    }));
 
 
 

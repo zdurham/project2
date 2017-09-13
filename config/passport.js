@@ -90,6 +90,16 @@ module.exports = (passport, user) => {
     },
       
     function(req, email, password, done) {
+      err = validationResult(req).mapped()
+      
+      if (err) {
+        if (err.email) {
+          req.flash('badEmail', 'Please enter a valid email address')
+        }
+        if (err.password) {
+          req.flash('badPass', 'Your password is required')
+        }
+      }
 
       var isValidPassword = function(userpass, password) {
         return bcrypt.compareSync(password, userpass);
