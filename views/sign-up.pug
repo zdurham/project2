@@ -10,23 +10,37 @@ block content
     form#signup(method='POST' action="/sign-up" name="signup")
       .row
         div.input-field.col.s6
+          if badFirst
+            p #{badFirst}
           input.validate#firstName(name="firstName" type="text")
-          label(for="firstName") First Name
+          label(for="firstName") First Name (required)
         div.input-field.col.s6
+          if badLast
+            p #{badLast}
           input.validate#lastName(name="lastName" type="text")
-          label(for="lastName") Last Name
+          label(for="lastName") Last Name (required)
         div.input-field.col.s12
+          if badEmail
+            p #{badEmail}
+
           input.validate#email(name="email" type="text")
-          label(for="email") Email
+          label(for="email") Email (required)
         div.input-field.col.s12
+          if badUser
+            p #{badUser}
+
           input.validate#username(name="username" type="text")
-          label(for="username") Username
+          label(for="username") Username (required)
         div.input-field.col.s12
+          if badPass
+            p.err #{badPass}
           input.validate#password(name="password" type="text")
-          label(for="password") Password  
+          label(for="password") Password (required)
         div.input-field.col.s12
+          if noMatch
+            p.err #{noMatch}
           input.validate#password2(name="password2" type="text")
-          label(for="password2") Confirm Password  
+          label(for="password2") Confirm Password (required)
         div.input-field.col.s12
           textarea.materialize-textarea#about(name="about" type="text")
           label(for="about") About Me

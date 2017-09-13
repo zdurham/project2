@@ -1,11 +1,7 @@
 const db = require("../models")
 
-module.exports = (app) => {
 
-  // Renders the create-post template
-  app.get("/create-post", (req, res) => {
-    res.render('create-post')
-  })
+module.exports = (app) => {
 
   // Displays all posts on the posts list page
   app.get('/posts', (req, res) => {
@@ -37,9 +33,10 @@ module.exports = (app) => {
 
   // Puts posts into DB and links them to the user that is logged in
   app.post('/create-post', (req, res) => {
+    
     db.Post.create({
       title: req.body.title,
-      subject: req.body.subject,
+      category: req.body.category,
       body: req.body.body,
       image: req.body.image ? req.body.image : null,
       UserId: req.user.id
