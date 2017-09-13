@@ -65,7 +65,8 @@
 .page-footer{
 	background-color:#FF5E00;
 	background-image:url("/assets/images/pattern_orange.jpg");
-	color:green;
+	bottom:0px;
+	position:relative;
 }
 .footer-copyright{
 	background-color:red;
