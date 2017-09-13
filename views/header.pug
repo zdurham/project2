@@ -1,57 +1,44 @@
+
+//I am a line comment
+<!--I am a block Comment ASDSa 
+dasdas sad-->
+
 doctype html
 html
 	head
 		title Rally Point
+		// Linking Material Icons
 		link(rel = "stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+
+		// Linking Materialize CSS
 		link(type="text/css", rel ="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
-		link(rel = 'stylesheet', href='/assets/css/style.css')
-		
-		
+
+		// Linking local, unique styling
+		link(rel='stylesheet', href='assets/css/style.css')
 		
 	body
-	
-		//- div(id ="modal1", class ="modal modal-fixed-footer")
-		//- 	div(class = "modal-content")
-		//- 		h4 Sign in
-		//- 		p A bunch of text
-		//- 		form(method="post", action="/sign-in")
-		//- 			label(for="username") Email
-		//- 			input#email(name="email" type="text" placeholder = "email")
-
-		//- 			label(for="password") Password
-		//- 			input#password(name="password" type="password", placeholder ="Enter Your Password")
-		//- 			div(class="center-align")
-		//- 				button#signin.btn.waves-green.waves-effect.center-align(type="submit") Submit
-
-		//- 		br
-		//- 		br
-				
-		//- 		h4(class ="center-align") Want to create an account?
-		//- 		div(class ="center-align")
-		//- 			<a class="waves-effect waves-light btn modal-action modal-close", href ="/sign-up">Join</a>
-
-		//- 	div(class ="modal-footer")
-		//- 		a(href="#!", class="modal-action modal-close waves-effect waves-green btn-flat") Close
 		ul(id="dropdown1", class="dropdown-content")
 			li
-				a(href ="#!") Requests
-			li(class ="divider")
+				a(href ="#") Requests
 			li
 				a(href = "#!") Causes
 			li(class ="divider")
 			li
+
 				a(href="/posts") Posts
+
 
 		ul(id="dropdown2", class="dropdown-content")
 			li
-				a(href ="/dashboard") User Profile
-			li(class ="divider")
+				a(href ="/welcome") User Profile
+			li
+				a(href = "#!") Option 2
 			li(class ="divider")
 			li
-				a(href ="/logout") Sign Out
+				a(href ="#!") Sign Out
 		nav
 			div(class="nav-wrapper")
-				h2(class ="left valign-wrapper") Rally Point
+				img(src = "/assets/images/rpLogo.png" class ="left" width ="250" height ="62")
 				ul(class="hide-on-med-and-down left")
 					li
 						a(class ="dropdown-button", href="#!", data-activates ='dropdown1') Get Active
@@ -64,6 +51,7 @@ html
 						a(href ="#") Contact
 				ul(class = "hide-on-med-and-down right")
 					li
+
 						a(href = "/sign-in") login / register
 					if user
 						li
@@ -74,3 +62,4 @@ html
 							a(class ="dropdown-button", href="", data-activates ='dropdown2') User Profile
 								i(class ="material-icons right") arrow_drop_down
 		div(class = "row underRow")
+

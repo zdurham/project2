@@ -30,5 +30,11 @@ module.exports = (app) => {
       res.json(dbUser)
     })
   })
+       app.get("/test", (req, res) => {
+      res.render("test")
+  });
+    app.get('/profile', (req, res)=>{
+    res.render("dashboard")
+  });
 }
 
