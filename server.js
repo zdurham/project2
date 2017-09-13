@@ -8,6 +8,7 @@ const env = require('dotenv').load();
 const flash = require('connect-flash')
 const passport = require('passport')
 const db = require("./models")
+const expressValidator = require('express-validator')
 
 //---------------------------------------------
 // Setting up Express server and Pug
@@ -38,6 +39,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type: 'application/vnd.api+json' }))
+
+app.use(expressValidator())
 
 //---------------------------------------------
 // Passport configuration below
