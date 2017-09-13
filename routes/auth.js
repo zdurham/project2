@@ -57,15 +57,15 @@ module.exports = (app, passport) => {
     check('password').not().isEmpty().withMessage('You must fill out the password field to continue')], 
 
     (req, res, next) => {
-      err = validationResult(req).array()
+      err = validationResult(req).mapped()
       
       console.log(err)
       
-      if (err.length > 0) {
-        if (err[0]) {
+      if (err.email || err.password) {
+        if (err.email) {
           req.flash('badEmail', 'Please enter a valid email address')
         }
-        if (err[1]) {
+        if (err.password) {
           req.flash('badPass', 'Your password is required')
         }
         return res.redirect('/sign-in')
