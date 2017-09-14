@@ -154,26 +154,33 @@ module.exports = (app, passport) => {
   })
 
 
-  app.post("/charge", (req, res) => {
-    let amount = req.body.amount;
-    let account = post.User.stripeAccountId
-
-    stripe.customers.create({
-      email: req.body.stripeEmail,
-      source: req.body.stripeToken
-    })
-    .then(customer =>
+  app.post("/causes/:cause/charge", (req, res) => {
+    res.locals.amount = req.body.amount * 100
+    db.Cause.findOne({
+      where: {
+        id: req.params.cause
+      },
+      include: db.User
+    }).then(cause => {
+      
+      const account = cause.User.stripeAccountId;
+      console.log(res.locals.amount)
+      console.log('id: ', account)
       stripe.charges.create({
-        amount,
+        
+        amount: res.locals.amount,
         destination: {
+          amount: res.locals.amount,
           account: account
         },
         description: "Sample Charge",
         currency: "usd",
-        customer: customer.id
-        
-      }))
-    .then(charge => res.render("charge.pug"));
+        source: req.body.stripeToken   
+    }).then(charge => {
+      console.log(charge)
+      res.render("charge.pug")      
+    })
+    });
   });
   //-------------------------------------------------
   // Connect Stuff

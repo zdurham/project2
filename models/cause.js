@@ -7,16 +7,18 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     body: {
       type: DataTypes.STRING
     },
     image: {
       type: DataTypes.STRING
     },
+    goal: {
+      type: DataTypes.INTEGER
+    },
+    progress: {
+      type: DataTypes.INTEGER
+    }
   })
   // Data association
   Cause.associate = function(models) {

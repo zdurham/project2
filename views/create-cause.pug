@@ -4,7 +4,7 @@ extends main
 block content
   .flex-container
     .row
-      form#createPost(action='/create-post' method='post' name='signin')
+      form#createPost(action='/create-cause' method='post' name='create-cause')
         .row
           div.input-field.col.s12
             i.material-icons.prefix note_add
@@ -17,5 +17,8 @@ block content
             i.material-icons.prefix mode_edit
             textarea.materialize-textarea.validate#body(name='body' type='text')
             label(for='body') Body
+          div.input-field.col.s12
+            input.validate#goal(name='goal' type='number')
+            label(for='goal') Goal Amount
         button.btn.waves-effect.waves-light#submit(type="submit") Submit
         

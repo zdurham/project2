@@ -1,0 +1,44 @@
+extends main
+
+block content
+  div.container
+    div.row.headerColor
+      div.col.l12.center-align
+        h4 #{cause.title}
+    div.row
+      div.col.l12.postIndiv
+        div.row
+          div.col.l3.postLCol
+            div.row.center-align
+                h5 #{cause.User.username}
+            div.row.center-align
+              if User
+                img(src=`${cause.User.image}` width='100' height='100')
+              else
+                img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
+          div.col.s9
+            
+            p #{cause.body}
+            div(class ="divide")
+            hr
+            p 
+        div.row
+          div.col.l12.orange
+            if user
+              form(action=`/causes/${cause.id}/charge`, method="post")
+                div.input-field
+                  input#amount(name='amount' type='number')
+                  label(for='amount') Amount (in USD)
+                script(
+                  src="//checkout.stripe.com/v2/checkout.js",
+                  class="stripe-button",
+                  data-key='pk_test_CSHPgEKseohmnLTK37yhKPio'
+                  data-locale="auto",
+                  data-description="Sample Charge",
+                  data-amount="500")
+            else
+              p You must be logged in to donate
+    
+            script(src="https://checkout.stripe.com/checkout.js")
+            script(src="https://js.stripe.com/v3/")
+            script(src='/assets/javascript/stripe.js')
