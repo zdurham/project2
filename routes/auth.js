@@ -12,7 +12,7 @@ dotenv.load()
 // const keyPublishable = process.env.PUBLISHABLE_KEY
 // const keySecret = process.env.SECRET_KEY
 
-// const stripe = require('stripe')(keySecret)
+const stripe = require('stripe')('sk_test_H1nezbdzzB1eiwgOWgvCV3FL')
 
 
 module.exports = (app, passport) => {
@@ -61,6 +61,11 @@ module.exports = (app, passport) => {
    // Attempting to go to create-post without having signed in
    app.get('/create-post', isLoggedIn, (req, res) => {
      res.render('create-post')
+   })
+
+   // Attempting to go to create cause without having signed in
+   app.get('/create-cause', isLoggedIn, (req, res) => {
+     res.render('create-cause', {user: req.user})
    })
 
   // Registering user
@@ -143,27 +148,45 @@ module.exports = (app, passport) => {
   // Setting up Stripe routes, hopefully they work
   //---------------------------------------------
 
-  // Checkout stuff
-  app.get('/donate', (req, res) => {
-    res.render('donate', {keyPublishable: keyPublishable})
-  })
-
-
-  app.post("/charge", (req, res) => {
-    let amount = 500;
-
-    stripe.customers.create({
-      email: req.body.stripeEmail,
-      source: req.body.stripeToken
-    })
-    .then(customer =>
+  //
+  //  This route is the Stripe Checkout Route
+  //
+  app.post("/causes/:cause/charge", (req, res) => {
+    res.locals.amount = req.body.amount * 100
+    db.Cause.findOne({
+      where: {
+        id: req.params.cause
+      },
+      include: db.User
+    }).then(cause => {
+      res.locals.progress = cause.progress
+      const account = cause.User.stripeAccountId;
+      console.log(res.locals.amount)
+      console.log('id: ', account)
       stripe.charges.create({
-        amount,
+        
+        amount: res.locals.amount,
+        destination: {
+          amount: res.locals.amount,
+          account: account
+        },
         description: "Sample Charge",
-          currency: "usd",
-          customer: customer.id
-      }))
-    .then(charge => res.render("charge.pug"));
+        currency: "usd",
+        source: req.body.stripeToken   
+    }).then(charge => {
+      res.render("charge", {
+        user: req.user,
+        chargeAmount: (charge.amount / 100),
+      })
+      db.Cause.update({
+        progress: parseInt(charge.amount / 100) + parseInt(res.locals.progress)
+      }, {
+        where: {
+          id: req.params.cause
+        }
+      }).then(cause => console.log(cause)) 
+    })
+    });
   });
   //-------------------------------------------------
   // Connect Stuff
@@ -224,8 +247,19 @@ module.exports = (app, passport) => {
     });
   });
 
+  // Stripe user dashboard link
+  app.post('/dashboard/stripe-dash', (req, res) => {
+    let user = req.user
+    stripe.accounts.createLoginLink(
+      user.stripeAccountId,
+      function(err, link) {
+        if (err) throw err
 
-
+        res.redirect(link.url)
+      }
+    );
+  })
+  
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

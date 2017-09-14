@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     stripeAccountId: {
       type: DataTypes.STRING
+    },
+    amountDonated: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   })
 
@@ -49,6 +53,9 @@ module.exports = (sequelize, DataTypes) => {
     })
    User.hasMany(models.Comment, {
        onDelete: 'cascade'
+   })
+   User.hasMany(models.Cause, {
+     onDelete: 'cascade'
    })
   }
   return User

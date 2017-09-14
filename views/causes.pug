@@ -1,0 +1,22 @@
+extends main
+
+block content
+
+	.flex-container
+		.row
+			ul.collapsible
+				each cause in causes
+					li
+						div.collapsible-header
+							i.material-icons exposure
+							p Post ID:
+							a(href=`/causes/${cause.id}`)
+								h3 #{cause.id}
+							br
+							p Post Title:
+								h3 #{cause.title}
+						div.collapsible-body
+							p Goal:
+							p #{cause.goal}
+							br
+							

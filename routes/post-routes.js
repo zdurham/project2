@@ -43,16 +43,44 @@ module.exports = (app) => {
     }).then(res.redirect('/posts'))
   })
 
+
+  app.post('/create-cause', (req, res) => {
+    db.Cause.create({
+      title: req.body.title,
+      body: req.body.body,
+      goal: req.body.goal,
+      progress: 0,
+      UserId: req.user.id
+    }).then(results => res.redirect('/causes'))
+  })
+
+  // Display all causes
+  app.get('/causes', (req, res) => {
+    db.Cause.findAll({include: {model: db.User}}).then(causes => res.render('causes', {causes: causes}))
+  })
+
+  // Display one cause
+  app.get('/causes/:cause', (req, res) => {
+    db.Cause.findOne({
+      where: {
+        id: req.params.cause
+      },
+      include: db.User
+    }).then(cause => res.render('cause', {cause: cause, user: req.user}))
+  })
   //---------------------------------------------
   // Api route below
   //---------------------------------------------
 
   // Gets posts in json format
   app.get("/api/posts", (req, res) => {
-    db.Post.findAll({include: [{model: db.User},{model: db.Comment, include: db.User}]}).then((results) => {
+    db.Post.findAll({include: [{model: db.User},{model: db.Comment}]}).then((results) => {
       res.json(results);
     })
   })
 
+  app.get('/api/causes', (req, res) => {
+    db.Cause.findAll({include: db.User}).then(results => res.json(results));
+  })
   
 }
