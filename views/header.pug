@@ -90,6 +90,6 @@ html
 						a(href="/sign-in") Sign-In
 					li
 						a(href="/sign-up") Sign-Up
-          if user
-            li
-              a(href='/dashboard') #{user.username}
+					if user
+						li
+							a(href='/dashboard') #{user.username}

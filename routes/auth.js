@@ -12,7 +12,7 @@ dotenv.load()
 // const keyPublishable = process.env.PUBLISHABLE_KEY
 // const keySecret = process.env.SECRET_KEY
 
-// const stripe = require('stripe')(keySecret)
+const stripe = require('stripe')('sk_test_H1nezbdzzB1eiwgOWgvCV3FL')
 
 
 module.exports = (app, passport) => {
@@ -61,6 +61,11 @@ module.exports = (app, passport) => {
    // Attempting to go to create-post without having signed in
    app.get('/create-post', isLoggedIn, (req, res) => {
      res.render('create-post')
+   })
+
+   // Attempting to go to create cause without having signed in
+   app.get('/create-cause', isLoggedIn, (req, res) => {
+     res.render('create-cause')
    })
 
   // Registering user
@@ -145,12 +150,13 @@ module.exports = (app, passport) => {
 
   // Checkout stuff
   app.get('/donate', (req, res) => {
-    res.render('donate', {keyPublishable: keyPublishable})
+    res.render('donate', {keyPublishable: pk_test_CSHPgEKseohmnLTK37yhKPio})
   })
 
 
   app.post("/charge", (req, res) => {
-    let amount = 500;
+    let amount = req.body.amount;
+    let account = post.User.stripeAccountId
 
     stripe.customers.create({
       email: req.body.stripeEmail,
@@ -159,9 +165,13 @@ module.exports = (app, passport) => {
     .then(customer =>
       stripe.charges.create({
         amount,
+        destination: {
+          account: account
+        },
         description: "Sample Charge",
-          currency: "usd",
-          customer: customer.id
+        currency: "usd",
+        customer: customer.id
+        
       }))
     .then(charge => res.render("charge.pug"));
   });

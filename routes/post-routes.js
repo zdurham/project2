@@ -43,6 +43,10 @@ module.exports = (app) => {
     }).then(res.redirect('/posts'))
   })
 
+
+  app.post('/create-cause', (req, res) => {
+    
+  })
   //---------------------------------------------
   // Api route below
   //---------------------------------------------

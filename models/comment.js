@@ -17,6 +17,11 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     })
+    Comment.belongsTo(models.Cause, {
+      foreignKey: {
+        allowNull: false
+      }
+    })
   }
   return Comment
 }
