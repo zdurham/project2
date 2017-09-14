@@ -7,12 +7,23 @@ block content
       form#createPost(action='/create-post' method='post' name='signin')
         .row
           div.input-field.col.s12
+            i.material-icons.prefix note_add
+            h1.center Submit a New Request!
+          div.input-field.col.s12
+            i.material-icons.prefix mode_edit
             input.validate#title(name='title' type='text')
             label(for='title') Title
           div.input-field.col.s12
-            input.validate#subject(name='subject' type='text')
-            label(for='subject') Subject
+            select.validate#category(name='category')
+              option(value='Activism') Activism
+              option(value='Event / Rally') Event / Rally
+              option(value='Man-Made Disasters') Man-Made Disasters
+              option(value='Natural Disasters') Natural Disasters
+              option(value='Miscellaneous') Miscellaneous
+            label Category
+
           div.input-field.col.s12
+            i.material-icons.prefix mode_edit
             textarea.materialize-textarea.validate#body(name='body' type='text')
             label(for='body') Body
         button.btn.waves-effect.waves-light#submit(type="submit") Submit

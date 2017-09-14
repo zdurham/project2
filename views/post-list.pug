@@ -1,7 +1,6 @@
 extends main
 
 block content
-
 	.flex-container
 		.row
 			ul.collapsible
@@ -11,15 +10,14 @@ block content
 							i.material-icons exposure
 							p Post ID:
 							a(href=`/posts/${post.id}`)
-								h3 #{post.id}
 							br
 							p Post Title:
 								h3 #{post.title}
 						div.collapsible-body
 							p Subject:
-							p #{post.subject}
+							h3 #{post.subject}
 							br
 							p Body:
 							p #{post.body}
 							br
-							button.btn.waves-effect.waves-light#donateButton(type="button") Donate Today!         
+							button.btn.waves-effect.waves-light#donateButton(type="button") Donate Today!
