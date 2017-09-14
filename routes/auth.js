@@ -1,5 +1,19 @@
 const db = require("../models")
 const { check, validationResult } = require('express-validator/check');
+const request = require('request')
+// for the Stripe call later
+const querystring = require('querystring')
+const dotenv = require('dotenv')
+dotenv.load()
+
+//---------------------------------------------
+// Setting up Stripe and keys
+//---------------------------------------------
+// const keyPublishable = process.env.PUBLISHABLE_KEY
+// const keySecret = process.env.SECRET_KEY
+
+// const stripe = require('stripe')(keySecret)
+
 
 module.exports = (app, passport) => {
   
@@ -122,13 +136,100 @@ module.exports = (app, passport) => {
       failureRedirect: '/sign-in',
   
       failureFlash: true
-    }));
+    })
+  );
+
+  //---------------------------------------------
+  // Setting up Stripe routes, hopefully they work
+  //---------------------------------------------
+
+  // Checkout stuff
+  app.get('/donate', (req, res) => {
+    res.render('donate', {keyPublishable: keyPublishable})
+  })
+
+
+  app.post("/charge", (req, res) => {
+    let amount = 500;
+
+    stripe.customers.create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    })
+    .then(customer =>
+      stripe.charges.create({
+        amount,
+        description: "Sample Charge",
+          currency: "usd",
+          customer: customer.id
+      }))
+    .then(charge => res.render("charge.pug"));
+  });
+  //-------------------------------------------------
+  // Connect Stuff
+  app.get('/authorize', isLoggedIn, (req, res) => {
+    // Generate a random string as state to protect from CSRF and place it in the session.
+    req.session.state = Math.random().toString(36).slice(2);
+    // Prepare the mandatory Stripe parameters.
+    let parameters = {
+      client_id: 'ca_BOWzYl4q2Nq34am4i7mndZm4wDfoC4BO',
+      state: req.session.state
+    };
+    // Optionally, Stripe Connect accepts `first_name`, `last_name`, `email`,
+    // and `phone` in the query parameters for them to be autofilled.
+    parameters = Object.assign(parameters, {
+      first_name: req.user.firstName,
+      last_name: req.user.lastName,
+      email: req.user.email
+    });
+    // Redirect to Stripe to start the Connect onboarding.
+    res.redirect('https://connect.stripe.com/express/oauth/authorize' + '?' + querystring.stringify(parameters));
+  });
+
+
+  app.get('/token', isLoggedIn, async (req, res) => {
+    // Check the state we got back equals the one we generated before proceeding.
+    if (req.session.state != req.query.state) {
+      res.redirect('/sign-in');
+    }
+    // Post the authorization code to Stripe to complete the authorization flow.
+    request.post('https://connect.stripe.com/oauth/token', {
+      form: {
+        grant_type: 'authorization_code',
+        client_id: 'ca_BOWzYl4q2Nq34am4i7mndZm4wDfoC4BO',
+        client_secret: 'sk_test_H1nezbdzzB1eiwgOWgvCV3FL',
+        code: req.query.code
+      },
+      json: true
+    }, (err, response, body) => {
+      if (err || body.error) {
+        console.log('The Stripe onboarding process has not succeeded.');
+      } else {
+        // Update the model and store the Stripe account ID in the datastore.
+        // This Stripe account ID will be used to pay out to the pilot.
+        req.user.stripeAccountId = body.stripe_user_id;
+        db.User.update(
+          {
+            stripeAccountId: req.user.stripeAccountId
+          },
+          {
+          where: {
+            id: req.user.id
+          }
+        }).then(user => console.log(user))
+      }
+      // Redirect to the final stage.
+      
+      res.redirect('/dashboard');
+    });
+  });
+
 
 
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
       return next();
-    res.redirect('/')
+    res.redirect('/sign-in')
   }
 }

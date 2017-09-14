@@ -37,8 +37,8 @@ module.exports = (app) => {
     res.render("dashboard")
   });
 
-  app.use('/', (req, res) => {
-    res.redirect('/')
-  })
+  // app.use('/', (req, res) => {
+  //   res.redirect('/')
+  // })
 }
 

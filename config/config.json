@@ -14,7 +14,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "codingbootcamp",
+    "username": "",
     "password": "",
     "database": "database_production",
     "host": "127.0.0.1",

@@ -4,11 +4,13 @@ const pug = require('pug')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const path = require('path')
-const env = require('dotenv').load();
+const env = require('dotenv').config();
 const flash = require('connect-flash')
 const passport = require('passport')
 const db = require("./models")
 const expressValidator = require('express-validator')
+
+
 
 //---------------------------------------------
 // Setting up Express server and Pug
@@ -28,6 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(session({ secret: 'totallysecret',resave: true, saveUninitialized:true})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
 
 app.use(flash())
 
@@ -61,7 +64,7 @@ require("./routes/comment-route.js")(app)
 // User Routes
 require('./routes/user-routes.js')(app)
 
-// Authentication route
+// Authentication routes and Stripe routes
 require("./routes/auth.js")(app, passport)
 
 // General Routes
@@ -72,7 +75,7 @@ require("./routes/routes.js")(app)
 // Start server code below
 //---------------------------------------------
 
-db.sequelize.sync({}).then(function() {
+db.sequelize.sync({force:true}).then(function() {
   app.listen(port, function() {
     console.log("App listening on PORT: " + port)
   })

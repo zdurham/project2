@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     lastLogin: {
       type: DataTypes.DATE
+    },
+    stripeAccountId: {
+      type: DataTypes.STRING
     }
   })
 
