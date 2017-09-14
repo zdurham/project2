@@ -17,7 +17,6 @@ html
 				form(method="post", action="/sign-in")
 					label(for="username") Email
 					input#email(name="email" type="text" placeholder = "email")
-
 					label(for="password") Password
 					input#password(name="password" type="password", placeholder ="Enter Your Password")
 					div(class="center-align")
@@ -90,6 +89,6 @@ html
 						a(href="/sign-in") Sign-In
 					li
 						a(href="/sign-up") Sign-Up
-          if user
-            li
-              a(href='/dashboard') #{user.username}
+				if user
+					li
+						a(href='/dashboard') #{user.username}
