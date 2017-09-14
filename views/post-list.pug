@@ -14,10 +14,11 @@ block content
 							p Post Title:
 								h3 #{post.title}
 						div.collapsible-body
-							p Subject:
-							h3 #{post.subject}
+							p Category:
+							h3 #{post.category}
 							br
 							p Body:
 							p #{post.body}
 							br
-							button.btn.waves-effect.waves-light#donateButton(type="button") Donate Today!
+							form(method='get' action='/authorize')
+								button.btn.waves-effect.waves-light#donateButton(type="submit") Donate Today!
