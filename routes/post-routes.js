@@ -3,10 +3,17 @@ const db = require("../models")
 
 module.exports = (app) => {
 
+  //-------------------------------------------
+  //
+  // GET ROUTES
+  //
+  //-------------------------------------------
+
+
   // Displays all posts on the posts list page
   app.get('/posts', (req, res) => {
     db.Post.findAll().then(dbPost => {
-      res.render('posts', {posts: dbPost})
+      res.render('posts', {posts: dbPost, user: req.user})
     })    
   })
 
@@ -31,6 +38,30 @@ module.exports = (app) => {
     })
   })
 
+  // Display all causes
+  app.get('/causes', (req, res) => {
+    db.Cause.findAll({include: {model: db.User}}).then(causes => res.render('causes', {causes: causes, user: req.user}))
+  })
+
+  // Display one cause
+  app.get('/causes/:cause', (req, res) => {
+    db.Cause.findOne({
+      where: {
+        id: req.params.cause
+      },
+      include: db.User
+    }).then(cause => res.render('cause', {cause: cause, user: req.user}))
+  })
+
+
+
+  //-------------------------------------------
+  //
+  // POST ROUTES
+  //
+  //-------------------------------------------
+
+
   // Puts posts into DB and links them to the user that is logged in
   app.post('/create-post', (req, res) => {
     
@@ -54,23 +85,12 @@ module.exports = (app) => {
     }).then(results => res.redirect('/causes'))
   })
 
-  // Display all causes
-  app.get('/causes', (req, res) => {
-    db.Cause.findAll({include: {model: db.User}}).then(causes => res.render('causes', {causes: causes}))
-  })
-
-  // Display one cause
-  app.get('/causes/:cause', (req, res) => {
-    db.Cause.findOne({
-      where: {
-        id: req.params.cause
-      },
-      include: db.User
-    }).then(cause => res.render('cause', {cause: cause, user: req.user}))
-  })
-  //---------------------------------------------
-  // Api route below
-  //---------------------------------------------
+  
+  //-------------------------------------------
+  //
+  // API ROUTES
+  //
+  //-------------------------------------------
 
   // Gets posts in json format
   app.get("/api/posts", (req, res) => {
