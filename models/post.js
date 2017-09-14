@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    subject: {
+    category: {
       type: DataTypes.STRING,
       allowNull: false
     },
