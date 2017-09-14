@@ -65,7 +65,7 @@ module.exports = (app, passport) => {
 
    // Attempting to go to create cause without having signed in
    app.get('/create-cause', isLoggedIn, (req, res) => {
-     res.render('create-cause')
+     res.render('create-cause', {user: req.user})
    })
 
   // Registering user
@@ -148,12 +148,9 @@ module.exports = (app, passport) => {
   // Setting up Stripe routes, hopefully they work
   //---------------------------------------------
 
-  // Checkout stuff
-  app.get('/donate', (req, res) => {
-    res.render('donate', {keyPublishable: pk_test_CSHPgEKseohmnLTK37yhKPio})
-  })
-
-
+  //
+  //  This route is the Stripe Checkout Route
+  //
   app.post("/causes/:cause/charge", (req, res) => {
     res.locals.amount = req.body.amount * 100
     db.Cause.findOne({
@@ -162,7 +159,7 @@ module.exports = (app, passport) => {
       },
       include: db.User
     }).then(cause => {
-      
+      res.locals.progress = cause.progress
       const account = cause.User.stripeAccountId;
       console.log(res.locals.amount)
       console.log('id: ', account)
@@ -177,8 +174,17 @@ module.exports = (app, passport) => {
         currency: "usd",
         source: req.body.stripeToken   
     }).then(charge => {
-      console.log(charge)
-      res.render("charge.pug")      
+      res.render("charge", {
+        user: req.user,
+        chargeAmount: (charge.amount / 100),
+      })
+      db.Cause.update({
+        progress: parseInt(charge.amount / 100) + parseInt(res.locals.progress)
+      }, {
+        where: {
+          id: req.params.cause
+        }
+      }).then(cause => console.log(cause)) 
     })
     });
   });
@@ -241,8 +247,19 @@ module.exports = (app, passport) => {
     });
   });
 
+  // Stripe user dashboard link
+  app.post('/dashboard/stripe-dash', (req, res) => {
+    let user = req.user
+    stripe.accounts.createLoginLink(
+      user.stripeAccountId,
+      function(err, link) {
+        if (err) throw err
 
-
+        res.redirect(link.url)
+      }
+    );
+  })
+  
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

@@ -17,7 +17,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER
     },
     progress: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING,
+      defaultValue: 0
     }
   })
   // Data association

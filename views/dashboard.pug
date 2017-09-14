@@ -36,3 +36,7 @@ block content
 		form(method='get' action='/authorize')
 			button.btn(type='submit') Connect with Stripe
 
+		if user.stripeAccountId
+			form(method='post' action='/dashboard/stripe-dash')
+				button.btn(type='submit') View Stripe Dashboard
+

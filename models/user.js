@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     stripeAccountId: {
       type: DataTypes.STRING
+    },
+    amountDonated: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   })
 
