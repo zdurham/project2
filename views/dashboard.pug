@@ -1,8 +1,11 @@
 extends main
+	
 block content
+
 	div(class = "container")
 		div(class="row")
 			div(class ="col s12 teal")
+
 				h3 Your Profile #{user.username}
 		div(class = "row")
 			div(class = "col l3")
@@ -32,3 +35,4 @@ block content
 
 		form(method='get' action='/authorize')
 			button.btn(type='submit') Connect with Stripe
+
