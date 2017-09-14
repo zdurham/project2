@@ -44,38 +44,52 @@ html
 
 		ul(id="dropdown2", class="dropdown-content")
 			li
+
 				a(href ="/dashboard") User Profile
 			li(class ="divider")
-			li(class ="divider")
 			li
-				a(href ="/logout") Sign Out
+				a(href ="#!") Sign Out
+		
+
 		nav
 			div(class="nav-wrapper")
-				h2(class ="left valign-wrapper") Rally Point
-				ul(class="hide-on-med-and-down left")
+				img(src = "/assets/images/rpLogo.png" class ="left hide-on-med-and-down" width ="250" height ="62")
+				a(href="#!", class="brand-logo left on-med-and-down")
+					img(src = "/assets/images/rpLogo.png" class ="left" width ="225" height ="56", class="hide-on-large-only")
+					//-ul(class="hide-on-med-and-down")
+				a(href="#", data-activates = "mobile-demo", class="button-collapse right")
+					i(class="material-icons") menu
+				ul(class ="left hide-on-med-and-down")
+
 					li
 						a(href ="/") Home
 					li
 						a(class ="dropdown-button", href="#!", data-activates ='dropdown1') Get Active
+								i(class ="material-icons right") arrow_drop_down
+					li
+						a(href ="/about") About Us
+					li
+						a(href ="/contact") Contact
+				ul(class ="right hide-on-med-and-down")
+					li
+						a(href ="/sign-up") Sign-up
+					li
+						a(href='/sign-in') Sign-In
+					li
+						a(class ="dropdown-button", href="#!", data-activates ='dropdown2') User Profile
 							i(class ="material-icons right") arrow_drop_down
+				ul(class ="side-nav", id="mobile-demo")
 					li
-						a(href ="#") About Us
+						a(href="#") Posts
 					li
-						a(href ="#") Components
+						a(href="/about") About Us
 					li
-						a(href ="#") Contact
-				ul(class = "hide-on-med-and-down right")
+						a(href="/profile") Dashboard
 					li
-						a(class ="btn modal-trigger", href = "#modal1") login / sign up
-					if user
-						li
-							a(class ="dropdown-button", href="/dashboard", data-activates ='dropdown2') #{user.username}
-								i(class ="material-icons right") arrow_drop_down
-					else
-						li
-							a(class ="dropdown-button", href="", data-activates ='dropdown2') User Profile
-								i(class ="material-icons right") arrow_drop_down
 
-		div.row.underRow
-
-
+						a(href="/sign-in") Sign-In
+					li
+						a(href="/sign-up") Sign-Up
+          if user
+            li
+              a(href='/dashboard') #{user.username}
