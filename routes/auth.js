@@ -158,7 +158,13 @@ module.exports = (app, passport) => {
   );
 
   //---------------------------------------------
+  //
+  //
+  //
   // Setting up Stripe routes, hopefully they work
+  //
+  //
+  //
   //---------------------------------------------
 
   //
@@ -172,8 +178,10 @@ module.exports = (app, passport) => {
       },
       include: db.User
     }).then(cause => {
+      res.locals.id = cause.User.id
       res.locals.causeEmail = cause.User.email
       res.locals.progress = cause.progress
+      res.locals.username = cause.User.username
       const account = cause.User.stripeAccountId;
 
       stripe.charges.create({
@@ -187,7 +195,7 @@ module.exports = (app, passport) => {
         currency: "usd",
         source: req.body.stripeToken   
     }).then(charge => {
-      let actualCharge = (charge.amount /100)
+      let actualCharge = (charge.amount / 100)
       res.render("charge", {
         user: req.user,
         chargeAmount: actualCharge,
@@ -246,7 +254,23 @@ module.exports = (app, passport) => {
             
         };
       });
-      
+      let paymentObj = {
+        amount: actualCharge,
+        date: new Date(),
+        recipient: res.locals.username,
+        UserId: req.user.id
+      }
+
+      db.Payment.create(paymentObj).then(payment => console.log(payment))
+
+      let earningObj = {
+        amount: actualCharge,
+        date: new Date(),
+        donor: req.user.id,
+        UserId: res.locals.id
+      }
+
+      db.Earning.create(earningObj).then(earning => console.log(earning))
 
       db.Cause.update({
         progress: parseInt(charge.amount / 100) + parseInt(res.locals.progress)
@@ -280,7 +304,7 @@ module.exports = (app, passport) => {
   });
 
 
-  app.get('/token', isLoggedIn, (req, res) => {
+  app.get('/token', isLoggedIn, async (req, res) => {
     // Check the state we got back equals the one we generated before proceeding.
     if (req.session.state != req.query.state) {
       res.redirect('/sign-in');

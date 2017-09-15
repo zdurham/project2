@@ -29,15 +29,12 @@ block content
 						h5 #{user.firstName} #{user.lastName}
 						h5 #{user.email}
 							p #{user.about}
-						form(method='get' action='/authorize')
-							button.btn(type='submit' class ="blueBtn") Connect with Stripe
-
-        if user.stripeAccountId
-			    form(method='post' action='/dashboard/stripe-dash')
-				    button.btn(type='submit') View Stripe Dashboard
-		    else
-			    form(method='get' action='/authorize')
-				    button.btn(type='submit') Connect with Stripe
+						if user.stripeAccountId
+							form(method='post' action='/dashboard/stripe-dash')
+								button.btn.blueBtn(type='submit') View Stripe Dashboard
+						else
+							form(method='get' action='/authorize')
+								button.btn.blueBtn(type='submit') Connect with Stripe
 				div(class ="col l12 blueBox", style ="height:50px;")
 				
 				br
