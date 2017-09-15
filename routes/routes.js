@@ -36,6 +36,9 @@ module.exports = (app) => {
     app.get('/profile', (req, res)=>{
     res.render("dashboard")
   });
+    app.get('/about', (req, res)=>{
+      res.render("about-us")
+    })
 
   // app.use('/', (req, res) => {
   //   res.redirect('/')

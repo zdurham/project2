@@ -26,17 +26,12 @@ block content
 							h5 Email:
 							h5 Bio:
 					div(class ="col l7 offset-l1")
-						h5 #{user.firstName} #{user.lastName}
-						h5 #{user.email}
-							p #{user.about}
-						form(method='get' action='/authorize')
-							button.btn(type='submit' class ="blueBtn") Connect with Stripe
-
-						if user.stripeAccountId
-							form(method='post' action='/dashboard/stripe-dash')
-							button.btn(type='submit') View Stripe Dashboard
+							h5 #{user.firstName} #{user.lastName}
+							h5 #{user.email}
+								p #{user.about}
 				div(class ="col l12 blueBox", style ="height:50px;")
 				
+			
 				br
 				br
 				br
@@ -62,10 +57,4 @@ block content
 							h5 user comment
 			div(class ="col l12 blueBox", style ="height:50px;")
 			br
-			br
-			br
-			br
-			br
-			br
-			
 

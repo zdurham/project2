@@ -210,7 +210,7 @@ module.exports = (app, passport) => {
   });
 
 
-  app.get('/token', isLoggedIn, async (req, res) => {
+  app.get('/token', isLoggedIn, (req, res) => {
     // Check the state we got back equals the one we generated before proceeding.
     if (req.session.state != req.query.state) {
       res.redirect('/sign-in');
