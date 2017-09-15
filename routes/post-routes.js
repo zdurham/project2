@@ -1,5 +1,6 @@
 const db = require("../models")
 
+const secret = process.env.PUBLISHABLE_KEY
 
 module.exports = (app) => {
 
@@ -50,7 +51,7 @@ module.exports = (app) => {
         id: req.params.cause
       },
       include: db.User
-    }).then(cause => res.render('cause', {cause: cause, user: req.user}))
+    }).then(cause => res.render('cause', {cause: cause, user: req.user, keyPublish: process.env.PUBLISHABLE_KEY}))
   })
 
 

@@ -1,10 +1,23 @@
 const db = require("../models")
 const { check, validationResult } = require('express-validator/check');
 const request = require('request')
+
 // for the Stripe call later
 const querystring = require('querystring')
-const dotenv = require('dotenv')
-dotenv.load()
+const env = require('dotenv')
+env.load()
+
+
+const nodemailer = require('nodemailer')
+const gmail = process.env.GMAIL_USERNAME
+const gpass = process.env.GMAIL_PASSWORD
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: gmail,
+    pass: gpass
+  }
+})
 
 //---------------------------------------------
 // Setting up Stripe and keys
@@ -12,7 +25,7 @@ dotenv.load()
 // const keyPublishable = process.env.PUBLISHABLE_KEY
 // const keySecret = process.env.SECRET_KEY
 
-const stripe = require('stripe')('sk_test_H1nezbdzzB1eiwgOWgvCV3FL')
+const stripe = require('stripe')(process.env.SECRET_KEY)
 
 
 module.exports = (app, passport) => {
@@ -159,10 +172,10 @@ module.exports = (app, passport) => {
       },
       include: db.User
     }).then(cause => {
+      res.locals.causeEmail = cause.User.email
       res.locals.progress = cause.progress
       const account = cause.User.stripeAccountId;
-      console.log(res.locals.amount)
-      console.log('id: ', account)
+
       stripe.charges.create({
         
         amount: res.locals.amount,
@@ -174,10 +187,67 @@ module.exports = (app, passport) => {
         currency: "usd",
         source: req.body.stripeToken   
     }).then(charge => {
+      let actualCharge = (charge.amount /100)
       res.render("charge", {
         user: req.user,
-        chargeAmount: (charge.amount / 100),
+        chargeAmount: actualCharge,
       })
+      // Send confirmation email
+      let donorEmail = {
+        from: gmail,
+        to: req.user.email,
+        subject: 'Rally Point Charge Confirmation',
+        html: 
+        `<h1>Thank you for your donation!</h1>
+        <h3>Your card has been charged $${actualCharge}</h3>
+        <h3>If you have any questions, feel free to email us back at this address</h4>
+        <br><br><br>
+        
+        <h3>Best,<h3>
+        <br>
+        <h3>The RallyPoint Team</h3>` //, // plaintext body
+        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+      };
+
+      let recipientEmail = {
+        from: gmail,
+        to: res.locals.causeEmail,
+        subject: 'Your cause has recieved a donation!',
+        html: 
+        `<h1>Your cause has recieved a donation!</h1>
+        <h3>You have recieved a donation of $${actualCharge}.</h3>
+        <h3>To see your current balance, login to you Stripe Dashboard from Rally Point.</h3>
+        <br><br><br>
+        
+        <h3>Best,<h3>
+        <br>
+        <h3>The RallyPoint Team</h3>`
+        
+        //, // plaintext body
+        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+      };
+
+      transporter.sendMail(donorEmail, function(error, info){
+        if(error){
+            console.log(error);
+            
+        }else{
+            console.log('Message sent: ' + info.response);
+            
+        };
+      });
+
+      transporter.sendMail(recipientEmail, function(error, info){
+        if(error){
+            console.log(error);
+            
+        }else{
+            console.log('Message sent: ' + info.response);
+            
+        };
+      });
+      
+
       db.Cause.update({
         progress: parseInt(charge.amount / 100) + parseInt(res.locals.progress)
       }, {
@@ -210,7 +280,7 @@ module.exports = (app, passport) => {
   });
 
 
-  app.get('/token', isLoggedIn, async (req, res) => {
+  app.get('/token', isLoggedIn, (req, res) => {
     // Check the state we got back equals the one we generated before proceeding.
     if (req.session.state != req.query.state) {
       res.redirect('/sign-in');
