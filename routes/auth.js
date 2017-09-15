@@ -67,7 +67,7 @@ module.exports = (app, passport) => {
       where: {
         id: req.user.id
       },
-      include: [{model: db.Post}, {model: db.Comment}]
+      include: [{model: db.Post}, {model: db.Comment}, {model: db.Payment}, {model: db.Earning}]
     }).then(user => res.render('dashboard', {user: user}))
    })
   
@@ -206,9 +206,10 @@ module.exports = (app, passport) => {
         to: req.user.email,
         subject: 'Rally Point Charge Confirmation',
         html: 
-        `<h1>Thank you for your donation!</h1>
+        `<h2>Thank you for your donation!</h2>
         <h3>Your card has been charged $${actualCharge}</h3>
         <h3>If you have any questions, feel free to email us back at this address</h4>
+        <h3>To see your transaction history, visit your personal dashboard.</h3>
         <br><br><br>
         
         <h3>Best,<h3>
@@ -224,7 +225,7 @@ module.exports = (app, passport) => {
         html: 
         `<h1>Your cause has recieved a donation!</h1>
         <h3>You have recieved a donation of $${actualCharge}.</h3>
-        <h3>To see your current balance, login to you Stripe Dashboard from Rally Point.</h3>
+        <h3>To see your transaction history, visit your personal dashboard.</h3>
         <br><br><br>
         
         <h3>Best,<h3>
@@ -304,7 +305,7 @@ module.exports = (app, passport) => {
   });
 
 
-  app.get('/token', isLoggedIn, async (req, res) => {
+  app.get('/token', isLoggedIn, (req, res) => {
     // Check the state we got back equals the one we generated before proceeding.
     if (req.session.state != req.query.state) {
       res.redirect('/sign-in');
