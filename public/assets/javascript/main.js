@@ -8,17 +8,21 @@ $(document).ready(function() {
   $('select').material_select();
 
 
-
-	var imageURLinput = document.getElementById("imageURLinput");
+  	//Allows us to upload an image using a URL
 	var image = document.getElementById("image");
+	var imageURL = document.getElementById("imageURL");
 	var src;
 
 	//var profilePic = document.getElementById("profilePic");
 
 	$("#uploadButton").click(function(){
-		src = imageURLinput.value;
+		src = image.value;
 
-		image.src = src;
+		imageURL.src = src;
+
+		//$("#image").val(src);
+
+		//alert(src);
 
 		//profilePic.src = src;
 	});
