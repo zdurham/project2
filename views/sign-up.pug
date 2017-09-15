@@ -6,28 +6,31 @@ block content
     p Please fill out the information below
     form#signup(method='POST' action="/sign-up" name="signup")
       .row
-        div.input-field.col.s6
-          if badFirst
+        if badFirst
             p #{badFirst}
+        div.input-field.col.s6
           input.validate#firstName(name="firstName" type="text")
           label(for="firstName") First Name (required)
-        div.input-field.col.s6
-          if badLast
+        if badLast
             p #{badLast}
+        div.input-field.col.s6
           input.validate#lastName(name="lastName" type="text")
           label(for="lastName") Last Name (required)
+      .row
         div.input-field.col.s12
           if badEmail
             p #{badEmail}
 
           input.validate#email(name="email" type="text")
           label(for="email") Email (required)
+      .row
         div.input-field.col.s12
           if badUser
             p #{badUser}
 
           input.validate#username(name="username" type="text")
           label(for="username") Username (required)
+      .row
         div.input-field.col.s12
           if badPass
             p.err #{badPass}
