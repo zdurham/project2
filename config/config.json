@@ -1,7 +1,6 @@
 {
   "development": {
-    "username": "root",
-    "password":"UltraMagnus86",
+    "username": "codingbootcamp",
     "database": "project2",
     "host": "localhost",
     "dialect": "mysql"
@@ -14,7 +13,6 @@
     "dialect": "mysql"
   },
   "production": {
-    
     "use_env_variable":"JawsDB_URL" ,
     "dialect": "mysql"
   }
