@@ -234,3 +234,18 @@ main {
 	box-shadow: 0 1px 0 0 #383481 !important;
 }
 
+ /* label focus color */
+ .input-field input[type=number]:focus + label {
+	color: #383481 !important;
+}
+/* label underline focus color */
+.input-field input[type=number]:focus {
+	border-bottom: 1px solid #383481 !important;
+	box-shadow: 0 1px 0 0 #383481 !important;
+}
+
+/* valid color */
+.input-field input[type=number].valid {
+	border-bottom: 1px solid #383481 !important;
+	box-shadow: 0 1px 0 0 #383481 !important;
+}
