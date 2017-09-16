@@ -271,8 +271,7 @@ module.exports = (app, passport) => {
         amount: actualCharge,
         date: new Date(),
         recipient: res.locals.username,
-        UserId: req.user.id,
-        createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
+        UserId: req.user.id
       }
 
       db.Payment.create(paymentObj).then(payment => console.log(payment))
@@ -282,7 +281,6 @@ module.exports = (app, passport) => {
         date: new Date(),
         donor: req.user.id,
         UserId: res.locals.id,
-        createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
       }
 
       db.Earning.create(earningObj).then(earning => console.log(earning))

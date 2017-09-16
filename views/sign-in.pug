@@ -26,10 +26,12 @@ block content
           div.err
             p #{passErr}
         form(method='post' action='/sign-in')
-          label(for="username") Email
-          input#email(name="email" data-error='Invalid Email' data-success='Valid Email' type="text" placeholder = "email")
-          label(for="password") Password
-          input#password(name="password" type="password", placeholder ="Enter Your Password")
+          div.input-field.col.s12
+            input#email(name="email" data-error='Invalid Email' data-success='Valid Email' type="text" placeholder = "email")
+            label(for="email") Email
+          div.input-field.col.s12
+            input#password(name="password" type="password", placeholder ="Enter Your Password")
+            label(for="password") Password            
           div(class="center-align")
             button#signin.btn.waves-green.waves-effect.blueBtn.center-align(type="submit") Submit
             
