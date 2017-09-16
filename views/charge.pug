@@ -1,12 +1,12 @@
 extends main
 
 block content
-	div(class="marginRemover")
-		div(class="row createTopper")
-			div(class ="col s8 offset-s2 createTopperColor", style="padding-bottom:0px; margin-top:20px;")
-				h3.title Charge Successful
-			div.row
-				div.col.s8.offset-s2.z-depth-2
-					h2(style="color:black;") You were successfully charged $#{chargeAmount}!
-				div.col.s8.offset-s2.postIndiv.blueBox(style="height:60px;")
-
+	main
+		div(class="marginRemover")
+			div(class="row createTopper")
+				div(class ="col s8 offset-s2 createTopperColor", style="padding-bottom:0px; margin-top:20px;")
+					h3.title #{cause.title}
+				div.row
+					div.col.s8.offset-s2.z-depth-2
+						h2(style="color:black;") You were successfully charged #{chargeAmount}!
+					div.col.s8.offset-s2.postIndiv.blueBox(style="height:60px;")

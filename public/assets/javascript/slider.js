@@ -1,6 +1,5 @@
 $(document).ready(function(){
-			$('.slider').slider();
-			$('select').material_select();
+      $('.slider').slider();
       $('.dropdown-button').dropdown();
       $('.modal').modal();
       $(".button-collapse").sideNav();
@@ -22,7 +21,9 @@ $("#profileTab").on('click', function(event){
 		$("#historyTab").removeClass("tabActive");
 		$("#historyTab").addClass("tabInactive");
 	}
+
 });
+
 
 
 
