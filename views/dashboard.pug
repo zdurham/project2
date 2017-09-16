@@ -29,12 +29,14 @@ block content
 						h5 #{user.firstName} #{user.lastName}
 						h5 #{user.email}
 							p #{user.about}
+
 						if user.stripeAccountId
 							form(method='post' action='/dashboard/stripe-dash')
 								button.btn.blueBtn(type='submit') View Stripe Dashboard
 						else
 							form(method='get' action='/authorize')
 								button.btn.blueBtn(type='submit') Connect with Stripe
+
 				div(class ="col l12 blueBox", style ="height:50px;")
 				
 				br
@@ -44,6 +46,7 @@ block content
 				br
 				br
 				br
+
 
 
 		div(id="History", class="col l12")
@@ -68,6 +71,7 @@ block content
 			br
 			br
 			
+
 
 
 
