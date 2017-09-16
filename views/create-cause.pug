@@ -9,11 +9,8 @@ block content
           h3.title Submit a Cause
     div(class ="row")
       div.col.s6.offset-s3.z-depth-2
-        form#createPost(action='/create-cause' method='post' name='create-cause')
-          div.input-field
-            br
-            i.material-icons.prefix note_add
-            br
+        if user.stripeAccountId
+          form#createPost(action='/create-cause' method='post' name='create-cause')
             div.input-field.col.s12
               i.material-icons.prefix mode_edit
               input.validate#title(name='title' type='text')
@@ -25,6 +22,11 @@ block content
             div.input-field.col.s12.center-align
               input.validate#goal(name='goal' type='number')
               label(for='goal') Goal Amount
-              button.btn.blueBtn.waves-effect.waves-light#submit(type="submit")(style="margin-bottom:20px") Submit
-              br
+            button.btn.blueBtn.waves-effect.waves-light#submit(type="submit")(style="margin-bottom:20px") Submit
+        else 
+          div.err
+            p You must connect or create a Stripe Account to create a cause. Go to your dashboard to do this.
+          form.center(method='get' action='/dashboard')
+            button.btn.blueBtn.waves-effect.waves-light#submit(type='submit') Go to Dashboard
+          br
           
