@@ -18,14 +18,14 @@ block content
           div.col.s9
             p #{cause.body}
             p Goal: $#{cause.goal}
-            p Progress: $#{cause.progress} #{}%
+            p Progress: $#{cause.progress}
 
             div(class = "divide")
             hr
             if user
               form(action=`/causes/${cause.id}/charge`, method="post")
                 div.input-field
-                  input#amount(name='amount' type='number')
+                  input#amount(name='amount' type='number' data-error='Please enter a valid positive integer')
                   label(for="amount") Amount (in USD)
                 script(
                   src="//checkout.stripe.com/v2/checkout.js",
