@@ -87,7 +87,7 @@ block content
 								.col.s12
 								h2 Posts
 								if posts
-									ul
+									ul.collapsible
 										each post in posts
 											li
 												div.collapsible-header
@@ -100,7 +100,7 @@ block content
 																h3 [ID: #{post.id}] [#{post.category}]  #{post.title}
 												div.collapsible-body
 													p Body:
-													p #{posts.body}
+													p #{post.body}
 													br
 													a(href=`/posts/${post.id}`)
 														button.btn.waves-effect.blueBtn.waves-light#donateButton(type="submit") Go to This Post
@@ -110,7 +110,7 @@ block content
 								.col.s12
 								h2 Causes
 								if causes.length > 0 
-									ul
+									ul.collapsible
 										each cause in causes
 											li
 												div.collapsible-header
