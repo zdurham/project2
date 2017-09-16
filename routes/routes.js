@@ -30,15 +30,10 @@ module.exports = (app) => {
       res.json(dbUser)
     })
   })
-       app.get("/test", (req, res) => {
-      res.render("test")
-  });
-    app.get('/profile', (req, res)=>{
-    res.render("dashboard")
-  });
-    app.get('/about', (req, res)=>{
-      res.render("about-us")
-    })
+  
+  app.get('/about', (req, res)=>{
+    res.render("about-us", {user: req.user})
+  })
 
   // app.use('/', (req, res) => {
   //   res.redirect('/')

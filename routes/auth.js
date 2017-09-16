@@ -1,6 +1,7 @@
 const db = require("../models")
 const { check, validationResult } = require('express-validator/check');
 const request = require('request')
+const moment = require('moment')
 
 // for the Stripe call later
 const querystring = require('querystring')
@@ -18,6 +19,9 @@ const transporter = nodemailer.createTransport({
     pass: gpass
   }
 })
+
+
+
 
 //---------------------------------------------
 // Setting up Stripe and keys
@@ -63,17 +67,21 @@ module.exports = (app, passport) => {
 
   // Displaying welcome after successful login
   app.get('/dashboard', isLoggedIn, (req, res) => {
+    // To conver the date into something meaningful
+    
     db.User.findOne({
       where: {
         id: req.user.id
       },
-      include: [{model: db.Post}, {model: db.Comment}, {model: db.Payment}, {model: db.Earning}]
-    }).then(user => res.render('dashboard', {user: user}))
+      include: [{model: db.Post}, {model: db.Comment}, {model: db.Payment}, {model: db.Earning}, {model: db.Cause}]
+    }).then(user => {
+      res.render('dashboard', {user: user, payments: user.Payment})
+    })
    })
   
    // Attempting to go to create-post without having signed in
    app.get('/create-post', isLoggedIn, (req, res) => {
-     res.render('create-post')
+     res.render('create-post', {user: req.user})
    })
 
    // Attempting to go to create cause without having signed in
@@ -84,10 +92,10 @@ module.exports = (app, passport) => {
   // Registering user
   app.post("/sign-up", [
     check('email').isEmail().withMessage('Email is not valid!'), 
-    check('password').not().isEmpty().withMessage('This is a required field'),
-    check('username').not().isEmpty().withMessage('This is a required field'),
-    check('firstName').not().isEmpty().withMessage('This is a required field'),
-    check('lastName').not().isEmpty().withMessage('This is a required field'),
+    check('password').not().isEmpty().withMessage('Please fill out all required fields to continue'),
+    check('username').not().isEmpty().withMessage('Please fill out all required fields to continue'),
+    check('firstName').not().isEmpty().withMessage('Please fill out all required fields to continue'),
+    check('lastName').not().isEmpty().withMessage('Please fill out all required fields to continue'),
     check('password2').not().isEmpty().withMessage('Your passwords do not match!').custom((value,{req}) => value === req.body.password)
   
     ], 
@@ -99,7 +107,7 @@ module.exports = (app, passport) => {
           req.flash('badEmail', 'Please enter a valid email address')
         }
         if (err.username) {
-          req.flash('badUser', 'This field is required')
+          req.flash('badUser', 'Please fill out all required fields to continue')
         }
         if (err.password) {
           req.flash('badPass', 'Your password is required')
@@ -108,10 +116,10 @@ module.exports = (app, passport) => {
           req.flash('noMatch', 'Your passwords do not match')
         }
         if (err.lastName) {
-          req.flash('badFirst', 'This is a required field')
+          req.flash('badFirst', 'Please fill out all required fields to continue')
         }
         if (err.firstName) {
-          req.flash('badLast', 'This is a required field')
+          req.flash('badLast', 'Please fill out all required fields to continue')
         }
         return res.redirect('/sign-up')
       }
@@ -268,7 +276,7 @@ module.exports = (app, passport) => {
         amount: actualCharge,
         date: new Date(),
         donor: req.user.id,
-        UserId: res.locals.id
+        UserId: res.locals.id,
       }
 
       db.Earning.create(earningObj).then(earning => console.log(earning))
@@ -314,8 +322,8 @@ module.exports = (app, passport) => {
     request.post('https://connect.stripe.com/oauth/token', {
       form: {
         grant_type: 'authorization_code',
-        client_id: 'ca_BOWzYl4q2Nq34am4i7mndZm4wDfoC4BO',
-        client_secret: 'sk_test_H1nezbdzzB1eiwgOWgvCV3FL',
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.SECRET_KEY,
         code: req.query.code
       },
       json: true

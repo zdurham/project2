@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false
     },
+    causeId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     donor: {
       type: DataTypes.STRING,
       allowNull: false

@@ -1,63 +1,95 @@
 extends main
 block content
 	br
-	div(class = "container")
-		div(class="row" style="padding:0px;margin-bottom:0")
-			ul(class="tabs")
-				li(class="tab col s3 offset-s3 tabActive", id="profileTab", style="border-radius:10px 0 0 0;")
-					a(href="#Profile") 
-						h5 Profile
-				li(class="tab col s3 tabInactive" id ="historyTab", style="border-radius:0px 10px 0 0; color:white")
-					a(href="#History") 
-						h5 History
-		div(id="Profile", class="col s12")
-				div(class ="col s12" style="background-color:#f15f22; border-radius:10px 10px 0px 0px; color:white")
-					h3(style="padding:0px 0px 0px 10px;margin:0") Your Profile, #{user.username}
-				div(class = "row")
-					div(class = "col l3 center-align")
-						span(class ="colorHeader")
-							h5 #{user.username}
-						if user
-							img(src=`${user.image}`, width ="100", height="100")
-						else
-							img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
-						h5 Joined: #{user.createdAt}
-					div(class ="col l1")
-						strong
-							h5 Name:
-							h5 Email:
-							h5 Bio:
-					div(class ="col l7 offset-l1")
-						h5 #{user.firstName} #{user.lastName}
-						h5 #{user.email}
-							p #{user.about}
-
-
-							if user.stripeAccountId
-								form(method='post' action='/dashboard stripe-dash')
-									button.btn.blueBtn(type='submit') View Stripe Dashboard
+	.container
+		.row(style="padding:0px;margin-bottom:0")
+			.col.s12
+				ul.tabs
+					li.tab.col.s3.tabActive.offset-l3#profileTab(style="border-radius:10px 0 0 0;")
+						a(href="#Profile") 
+							h5 Profile
+					li.tab.col.s3.tabInactive#historyTab(style="border-radius:0px 10px 0 0; color:white")
+						a(href="#History") 
+							h5 History
+			div#Profile.col.s12
+					.row
+						div(class ="col s12" style="background-color:#f15f22; border-radius:10px 10px 0px 0px; color:white")
+							h3.center(style="padding:5px 0px 5px 10px;margin:0") UserProfile
+					.row
+						.col.l3.center-align
+							.colorHeader
+								h5 #{user.username}
+							if user
+								img(src=`${user.image}`, width ="100", height="100")
 							else
-								form(method='get' action='/authorize')
-									button.btn.blueBtn(type='submit') Connect with Stripe
-									
-					div(class ="col l12 blueBox", style ="height:50px;")
+								img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
+							h5 Joined: #{user.createdAt}
+						div(class ="col l1")
+							strong
+								h5 Name:
+								h5 Email:
+								h5 Bio:
+						div(class ="col l7 offset-l1")
+							h5 #{user.firstName} #{user.lastName}
+							h5 #{user.email}
+								p #{user.about}
+
+
+								if user.stripeAccountId
+									form(method='post' action='/dashboard stripe-dash')
+										button.btn.blueBtn(type='submit') View Stripe Dashboard
+								else
+									form(method='get' action='/authorize')
+										button.btn.blueBtn(type='submit') Connect with Stripe
 									
 									br
-		div(id="History", class="col l12")
-			div(class ="col s12" style="background-color:#f15f22; border-radius:10px 10px 0px 0px; color:white")
-						h3(style="padding:0px 0px 0px 10px;margin:0") Your History, (username)
-			div(class = "row")
-				div(class = "col l3 center-align")
-					ul
-						li 
-							h5 user comment
-					ul
-						li 
-							h5 user comment
-					ul
-						li 
-							h5 user comment
-			div(class ="col l12 blueBox", style ="height:50px;")
+		div#History.col.s12
+			.row
+					.col.s12(style="background-color:#f15f22; border-radius:10px 10px 0px 0px; color:white")
+						h3.center(style="padding:5px 0px 5px 10px;margin:0") User Payments
+			.row
+				.col.s12
+					ul.tabs
+						li.tab.col.s2.offset-l2.tabActive
+							a(href='payments') Payments
+						li.tab.col.s2.tabInactive
+							a(href='#earnings') Earnings
+						li.tab.col.s2.tabInactive
+							a(href='#posts') Posts
+						li.tab.col.s2.tabInactive
+							a(href='#comments') Comments
+			div#payments
+				.row
+					.col.s12
+						if user.Payment
+							for payment in payments
+								div
+									p You donated #{user.Payment.amount} to 
+						else
+							p You haven't made any payments
+		div#earnings
+			.row
+				.col.s12
+					if user.Earning
+						for earning in earnings
+							div
+								p You donated #{user.Payment.amount} to 
+					else
+						p You haven't received any donations
+		div#posts
+			.row
+				.col.s12
+		div#comments
+			.row
+				.col.s12
+				<div id="test1" class="col s12">Test 1</div>
+				<div id="test2" class="col s12">Test 2</div>
+				<div id="test3" class="col s12">Test 3</div>
+				<div id="test4" class="col s12">Test 4</div>
+			</div>
+			br
+			.row
+				div(class ="col l12 blueBox", style ="height:50px;")
 			
 			
 

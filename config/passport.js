@@ -62,7 +62,7 @@ module.exports = (passport, user) => {
           username: req.body.username,
           password: userPassword,
           about: req.body.about,
-          userId: req.sessionID
+          image: req.body.image
         };
 
         db.User.create(data).then(function(newUser, created) {

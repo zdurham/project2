@@ -65,12 +65,13 @@ module.exports = (app) => {
 
   // Puts posts into DB and links them to the user that is logged in
   app.post('/create-post', (req, res) => {
-    
+    console.log('image input', req.body.image)
+
+
     db.Post.create({
       title: req.body.title,
       category: req.body.category,
       body: req.body.body,
-      image: req.body.image ? req.body.image : null,
       UserId: req.user.id
     }).then(res.redirect('/posts'))
   })

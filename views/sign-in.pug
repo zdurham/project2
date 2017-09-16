@@ -5,29 +5,33 @@ block content
     div(class="marginRemover")
       div(class="row createTopper")
         div(class ="col s6 offset-s3 createTopperColor", style ="padding-bottom:0px;margin-top:20px;")
-          h3.title Register
+          h3.title Login
     .row
       .col.s6.offset-s3.z-depth-2
-        h3.title Login
-        p A bunch of text
+        
         // not an email
         if badEmail
-          p.err #{badEmail}
+          div.err
+            p #{badEmail}
         // not found 
         if emailErr
-          p.err #{emailErr}
+          div.err
+            p.err #{emailErr}
+        // no password at all
+        if badPass
+          div.err
+            p #{badPass}
+        // password does not match
+        if passErr 
+          div.err
+            p #{passErr}
         form(method='post' action='/sign-in')
-          label(for="username") Email
-          input#email(name="email" type="text" placeholder = "email")
-
-          // no password at all
-          if badPass
-            p.err #{badPass}
-          // password does not match
-          if passErr 
-            p.err #{passErr}
-          label(for="password") Password
-          input#password(name="password" type="password", placeholder ="Enter Your Password")
+          div.input-field.col.s12
+            input#email(name="email" data-error='Invalid Email' data-success='Valid Email' type="text" placeholder = "email")
+            label(for="email") Email
+          div.input-field.col.s12
+            input#password(name="password" type="password", placeholder ="Enter Your Password")
+            label(for="password") Password            
           div(class="center-align")
             button#signin.btn.waves-green.waves-effect.blueBtn.center-align(type="submit") Submit
             

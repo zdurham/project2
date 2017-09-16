@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
 
     },
+    causeId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     recipient: {
       type: DataTypes.STRING,
       allowNull: false
@@ -21,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     })
+
   }
   
   return Payment
