@@ -66,7 +66,7 @@ block content
 							if payments.length > 0
 								for payment in payments
 									div
-										p You donated #{payment.amount} to:
+										p You donated $#{payment.amount} to: 
 											a(href=`/cause/${payment.causeId}`) Cause ID: #{payment.causeId}
 							else
 								p You haven't made any payments
@@ -76,8 +76,8 @@ block content
 							if earnings.length > 0
 								for earning in earnings
 									div
-										p You recieved #{earning.amount} for:
-											a(href=`/cause/${earning.causeId}`) Cause ID: #{payment.causeId}
+										p You recieved $#{earning.amount} for: 
+											a(href=`/cause/${earning.causeId}`) Cause ID: #{earning.causeId}
 							else
 								p You haven't received any donations
 				div#postsTab

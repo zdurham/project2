@@ -186,6 +186,7 @@ module.exports = (app, passport) => {
       },
       include: db.User
     }).then(cause => {
+      res.locals.cause = cause.id
       res.locals.id = cause.User.id
       res.locals.causeEmail = cause.User.email
       res.locals.progress = cause.progress
@@ -267,6 +268,7 @@ module.exports = (app, passport) => {
         amount: actualCharge,
         date: new Date(),
         recipient: res.locals.username,
+        causeId: res.locals.cause,
         UserId: req.user.id
       }
 
@@ -276,6 +278,7 @@ module.exports = (app, passport) => {
         amount: actualCharge,
         date: new Date(),
         donor: req.user.id,
+        causeId: res.locals.cause,
         UserId: res.locals.id,
       }
 
