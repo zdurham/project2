@@ -9,75 +9,73 @@ html
 		
 		
 	body
-	
-		ul(id="dropdown1", class="dropdown-content")
-			li
-				a(href ="#/create-cause") Create a Cause
-			li(class ="divider")
-			li
-				a(href = "/causes") Causes
-			li(class ="divider")
-			li
-				a(href='/create-post') Create a Post
-			li
-				a(href ="/posts") Posts
-
-		ul(id="dropdown2", class="dropdown-content")
-			li
-				a(href ="/dashboard") Dashboard
-			li(class ="divider")
-			li
-				a(href ="/logout") Logout
+		main
 		
+			ul(id="dropdown1", class="dropdown-content")
+				li
+					a(href ="/create-cause") Create a Cause
+				li(class ="divider")
+				li
+					a(href = "/causes") Causes
+				li(class ="divider")
+				li
+					a(href='/create-post') Create a Post
+				li
+					a(href ="/posts") Posts
 
-		nav
-			div(class="nav-wrapper")
-				a(href='/')
-					img(src = "/assets/images/rpLogo.png" class ="left hide-on-med-and-down" width ="250" height ="62")
-				a(href="#!", class="brand-logo left on-med-and-down")
-					img(src = "/assets/images/rpLogo.png" class ="left" width ="225" height ="56", class="hide-on-large-only")
-					//-ul(class="hide-on-med-and-down")
-				a(href="#", data-activates = "mobile-demo", class="button-collapse right")
-					i(class="material-icons") menu
-				ul(class ="left hide-on-med-and-down")
-					li
-						a(class ="dropdown-button", href="#!", data-activates ='dropdown1') Get Active
-								i(class ="material-icons right") arrow_drop_down
-					li
-						a(href ="/about") About Us
-				ul(class ="right hide-on-med-and-down")
-					if user
+			ul(id="dropdown2", class="dropdown-content")
+				li
+					a(href ="/dashboard") Dashboard
+				li(class ="divider")
+				li
+					a(href ="/logout") Logout
+			
+
+
+			nav
+				div(class="nav-wrapper")
+					a(href='/')
+						img(src = "/assets/images/rpLogo.png" class ="left hide-on-med-and-down" width ="250" height ="62")
+					a(href="#!", class="brand-logo left on-med-and-down")
+						img(src = "/assets/images/rpLogo.png" class ="left" width ="225" height ="56", class="hide-on-large-only")
+						//-ul(class="hide-on-med-and-down")
+					a(href="#", data-activates = "mobile-demo", class="button-collapse right")
+						i(class="material-icons") menu
+					ul(class ="left hide-on-med-and-down")
 						li
-							a.dropdown-button(href='#!' data-activates='dropdown2') #{user.username}
-							i.material-icons.right arrow_drop_down
-					else
+							a(class ="dropdown-button", href="#!", data-activates ='dropdown1') Get Active
+									i(class ="material-icons right") arrow_drop_down
 						li
-							a(href ="/sign-up") Register
+							a(href ="/about") About Us
 						li
-							a(href='/sign-in') Login
-			ul(class ="side-nav", id="mobile-demo")
-					li
-						a(href = "/about") About
-					li
-						a(href ="/contact") Contact
-					li
-						a(href="/create-cause") Create Cause
-					li
-						a(href="/causes") Causes
-					li
-						a(href="/create-post") Create Post
-					li
-						a(href="/post") Create View Posts
-					li
-						a(href="/dashboard") Dashboard
-					li
-						a(href ="/sign-up") Sign Up
-					li
-						a(href="/sign-in") Sign In
-					li
-						a(href="/sign-out") Sign Out
+							a(href ="/contact") Contact
+					ul(class ="right hide-on-med-and-down")
+						if user
+							li
+								a.dropdown-button(href='#!' data-activates='dropdown2') #{user.username}
+								i.material-icons.right arrow_drop_down
+						else
+							li
+								a(href ="/sign-up") Register
+							li
+								a(href='/sign-in') Login
+				ul(class ="side-nav", id="mobile-demo")
+						li
+							a(href = "/about") About
+						li
+							a(href ="/contact") Contact
+						li
+							a(href="/create-cause") Create Cause
+						li
+							a(href="/causes") Causes
+						li
+							a(href="/create-post") Create Post
+						li
+							a(href="/post") Create View Posts
+						li
+							a(href="/dashboard") Dashboard
 
 
 
-					
+						
 

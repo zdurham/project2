@@ -1,57 +1,36 @@
-
-//- zach original
-  .flex-container
-    div.post
-      h1 #{post.title}
-      h3 #{post.subject}
-      p #{post.body}
-      p Signature below
-      p #{post.User.username}
-    
-    
-    p Comment on this post
-    form(action='/posts/' + post.id + '/comment' method='post')
-      div.input-field.col.s12
-      textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
-      button.btn.waves-effect.waves-light#submit(type="submit") Submit
-
-
-    // If there are posts, 
-
-//- rick version
 extends main
 
 block content
-  div.container
-    div.row.headerColor
-      div.col.l12.center-align
-        h4 #{post.title}
+  div(class="marginRemover")
+    div(class="row createTopper")
+      div(class ="col s8 offset-s2 createTopperColor", style ="padding-bottom:0px;margin-top:20px;")
+        h3.title #{post.title}
     div.row
-      div.col.l12.postIndiv
-        div.row
-          div.col.l3.postLCol
-            div.row.center-align
-                h5 #{post.User.username}
-            div.row.center-align
-                img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
-          div.col.s9
-            h5 #{post.subject}
-            p #{post.body}
-            div(class ="divide")
-            hr
-            p Signature Below
-        div.row
-          div.col.l12.orange
-            if user
-              p Reply to this post
-              form(action='/posts/' + post.id + '/comment' method='post')
-                div.input-field.col.s12
-                textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")
-                button.btn.waves-effect.waves-light#submit(type="submit") Submit
+      div.col.s8.offset-s2.z-depth-2
+        div.col.l3.postLCol
+          div.row.center-align
+              h5 #{post.User.username}
+          div.row.center-align
+            if User
+                img(src=`${cause.User.image}` width = '100' height = '100')
             else
-              p You must be logged in to comment
+              img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
+        div.col.s9
+          h5 #{post.subject}
+          p #{post.body}
+          div(class ="divide")
+          hr
+          p Signature Below
+          if user
+            p Reply to this post
+            form(action='/posts/' + post.id + '/comment' method='post')
+              div.input-field.col.s12
+              textarea#comment.materialize-textarea(name="comment", cols="30", rows="10")(placeholder="Please type a reply")
+              button.btn.waves-effect.blueBtn.waves-light#submit(type="submit") Submit
+          else
+            p You must be logged in to comment
         div.row
-          div.col.l12.orange
+          div.col.l12
             if comments.length > 0
               ul
                 each comment in comments
@@ -60,7 +39,8 @@ block content
                     p #{comment.body}
             else
               p There are no comments on this post
+      div.col.s8.offset-s2.postIndiv.blueBox(style="height:60px;")
 
 
 
-     
+   

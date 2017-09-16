@@ -1,10 +1,12 @@
 extends main
 
 block content
-  .container.center-align
-    .row
-      .col.s12
-        h2 Thank you for your donation! You have been successfully charged $#{chargeAmount}
-        
-        h2 You will recieve a confirmation of your donation at #{user.email}.
-  
+	div(class="marginRemover")
+		div(class="row createTopper")
+			div(class ="col s8 offset-s2 createTopperColor", style="padding-bottom:0px; margin-top:20px;")
+				h3.title #{cause.title}
+			div.row
+				div.col.s8.offset-s2.z-depth-2
+					h2(style="color:black;") You were successfully charged #{chargeAmount}!
+				div.col.s8.offset-s2.postIndiv.blueBox(style="height:60px;")
+

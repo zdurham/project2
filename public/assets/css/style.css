@@ -1,3 +1,12 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+main {
+    flex: 1 0 auto;
+  }
+
 .icon-block {
   padding: 0 15px;
 }
@@ -100,12 +109,39 @@
   .tabs h5{
   	color:white;
   }
+  .orangeBtn{
+  	background-color:#FF5E00;
+  	min-height:60px;
+  	border-radius:15px;
+  	color:white;
+  }
+  .orangeBtn:hover{
+  	background-color:#383481;
+  }
+  .orangeBtn:focus{
+  	background-color:#FF5E00;
+  }
   .blueBtn{
   	background-color:#383481;
   	min-height:60px;
   	border-radius:15px;
+  	color:white;
   }
   .blueBtn:hover{
   	background-color:#FF5E00;
-
   }
+
+  .marginRemover: first-child .row{
+	margin:0px;
+  }
+  .createTopper{
+  	margin:0px;
+  	color:white;
+  }
+  .createTopperColor{
+  	background-color:#FF5E00;
+  	border-radius:10px 10px 0px 0px;
+  }
+ .dropdown-content li a{
+ 	color:#FF5E00;
+ }
