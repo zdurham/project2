@@ -13,7 +13,9 @@ module.exports = (app) => {
 
   // Displays all posts on the posts list page
   app.get('/posts', (req, res) => {
-    db.Post.findAll().then(dbPost => {
+    db.Post.findAll({
+      include: db.User
+    }).then(dbPost => {
       res.render('posts', {posts: dbPost, user: req.user})
     })    
   })
