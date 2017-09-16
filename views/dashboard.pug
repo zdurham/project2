@@ -67,7 +67,7 @@ block content
 								for payment in payments
 									div
 										p You donated $#{payment.amount} to: 
-											a(href=`/cause/${payment.causeId}`) Cause ID: #{payment.causeId}
+											a(href=`/causes/${payment.causeId}`) Cause ID: #{payment.causeId}
 							else
 								p You haven't made any payments
 				div#earningsTab
@@ -77,7 +77,7 @@ block content
 								for earning in earnings
 									div
 										p You recieved $#{earning.amount} for: 
-											a(href=`/cause/${earning.causeId}`) Cause ID: #{earning.causeId}
+											a(href=`/causes/${earning.causeId}`) Cause ID: #{earning.causeId}
 							else
 								p You haven't received any donations
 				div#postsTab
