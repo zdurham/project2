@@ -63,21 +63,21 @@ block content
 				div#paymentsTab
 					.row
 						.col.s12
-							if user.Payment
-								for payment in user.Payment
+							if payments.length > 0
+								for payment in payments
 									div
-										p You recieved #{user.Earning.amount} for:
-											a(href=`/cause/${user.Earning.causeId}`)
+										p You donated #{payment.amount} to:
+											a(href=`/cause/${payment.causeId}`) Cause ID: #{payment.causeId}
 							else
 								p You haven't made any payments
 				div#earningsTab
 					.row
 						.col.s12
-							if user.Earning
+							if payments.length > 0
 								for earning in earnings
 									div
-										p You recieved #{user.Earning.amount} for:
-											a(href=`/cause/${user.Earning.causeId}`)
+										p You recieved #{earning.amount} for:
+											a(href=`/cause/${earning.causeId}`) Cause ID: #{payment.causeId}
 							else
 								p You haven't received any donations
 				div#postsTab
