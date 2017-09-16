@@ -49,49 +49,151 @@ block content
 			.row
 				.col.s12
 					ul.tabs
-						li.tab.col.s2.offset-l2.tabActive
+						li.tab.col.s2.offset-l2.subTabActive
 							a(href='payments') Payments
-						li.tab.col.s2.tabInactive
+						li.tab.col.s2.subTabInactive
 							a(href='#earnings') Earnings
-						li.tab.col.s2.tabInactive
-							a(href='#posts') Posts
-						li.tab.col.s2.tabInactive
+						li.tab.col.s2.subTabInactive
+							a(href='#posts') Causes and Posts
+						li.tab.col.s2.subTabInactive
 							a(href='#comments') Comments
 			div#payments
 				.row
 					.col.s12
 						if user.Payment
-							for payment in payments
+							for payment in user.Payment
 								div
-									p You donated #{user.Payment.amount} to 
+									p You recieved #{user.Earning.amount} for:
+										a(href=`/cause/${user.Earning.causeId}`)
 						else
 							p You haven't made any payments
-		div#earnings
-			.row
-				.col.s12
-					if user.Earning
-						for earning in earnings
-							div
-								p You donated #{user.Payment.amount} to 
-					else
-						p You haven't received any donations
-		div#posts
-			.row
-				.col.s12
-		div#comments
-			.row
-				.col.s12
-				<div id="test1" class="col s12">Test 1</div>
-				<div id="test2" class="col s12">Test 2</div>
-				<div id="test3" class="col s12">Test 3</div>
-				<div id="test4" class="col s12">Test 4</div>
-			</div>
+			div#earnings
+				.row
+					.col.s12
+						if user.Earning
+							for earning in earnings
+								div
+									p You recieved #{user.Earning.amount} for:
+										a(href=`/cause/${user.Earning.causeId}`)
+						else
+							p You haven't received any donations
+			div#posts
+				.row
+					.col.s12
+						.row
+							.col.s12
+							if user.Post
+								ul
+									each post in user.Post
+										li
+											div.collapsible-header
+												.container(style="margin-left:0;margin-right:0;")
+													.row(style="margin-bottom:0")
+														.col.s12
+															p Posted at [#{post.createdAt}]
+													.row(style="margin-bottom:0")
+														.col.s12
+															h3 [ID: #{post.id}] [#{post.category}]  #{post.title}
+											div.collapsible-body
+												p Body:
+												p #{post.body}
+												br
+												a(href=`/posts/${post.id}`)
+													button.btn.waves-effect.blueBtn.waves-light#donateButton(type="submit") Go to This Post
+							else
+								p You haven't made any posts
+						.row
+							.col.s12
+							if user.Cause
+								ul
+									each cause in user.Cause
+										li
+											div.collapsible-header
+												.container(style="margin-left:0;margin-right:0;")
+													.row(style="margin-bottom:0")
+														.col.s12
+															p Posted at [#{post.createdAt}]
+													.row(style="margin-bottom:0")
+														.col.s12
+															h3 [ID: #{cause.id}] #{cause.title}
+											div.collapsible-body
+												p Cause:
+												p #{cause.body}
+												br
+												p Goal: $#{cause.goal}
+												br
+												p Progress: $#{cause.progress}
+												br
+												a(href=`/causes/${cause.id}`)
+													button.btn.waves-effect.blueBtn.waves-light#donateButton(type="submit") Go to This Cause
+							else 
+								p You haven't made any causes  
+			div#comments 
+			div#comments
+				.row
+					.col.s12
+						if comments
+							ul
+								each comment in comments
+									li 
+										p #{comments.body}
+										p #{comment.createdAt}
+						else
+							p You haven't commented on any posts 
 			br
 			.row
 				div(class ="col l12 blueBox", style ="height:50px;")
 			
 			
 
-
+//- row
+//-                     .col.s12(style="background-color:#f15f22 ; border-radius:10px 10px 0px 0px; color:white")
+//-                         h3.center(style="padding:5px 0px 5px 10px;margin:0") User Payments
+//-             .row
+//-                 .col.s12
+//-                     ul.tabs
+//-                         li.tab.col.s2.offset-l2.subTabActive
+//-                             a(href='payments') 
+//-                                 h6 Payments
+//-                         li.tab.col.s2.subTabActive
+//-                             a(href='#earnings')
+//-                                 h6 Earnings
+//-                         li.tab.col.s2.subTabActive
+//-                             a(href='#posts')
+//-                                 h6 Posts
+//-                         li.tab.col.s2.subTabActive
+//-                             a(href='#comments') 
+//-                                 h6 Comm
+//-             div#payments
+//-                 .row
+//-                     .col.s12
+//-                         if user.Payment
+//-                             for payment in payments
+//-                                 div
+//-                                     p You donated #{user.Payment.amount} to 
+//-                         else
+//-                             p You haven't made any payments
+//-         div#earnings
+//-             .row
+//-                 .col.s12
+//-                     if user.Earning
+//-                         for earning in earnings
+//-                             div
+//-                                 p You donated #{user.Payment.amount} to 
+//-                     else
+//-                         p You haven't received any donations
+//-         div#posts
+//-             .row
+//-                 .col.s12
+//-         div#comments
+//-             .row
+//-                 .col.s12
+//-                 <div id="test1" class="col s12">Test 1</div>
+//-                 <div id="test2" class="col s12">Test 2</div>
+//-                 <div id="test3" class="col s12">Test 3</div>
+//-                 <div id="test4" class="col s12">Test 4</div>
+//-             </div>
+//-             br
+//-             .row
 
 

@@ -75,7 +75,7 @@ module.exports = (app, passport) => {
       },
       include: [{model: db.Post}, {model: db.Comment}, {model: db.Payment}, {model: db.Earning}, {model: db.Cause}]
     }).then(user => {
-      res.render('dashboard', {user: user, payments: user.Payment})
+      res.render('dashboard', {user: user, payments: user.Payment, comments: user.Comment})
     })
    })
   
