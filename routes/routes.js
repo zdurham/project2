@@ -26,15 +26,23 @@ module.exports = (app) => {
 
   // Display all Users and their related comments and posts
   app.get('/api/users', (req, res) => {
-    db.User.findAll({ include: [{model: db.Post}, {model: db.Comment}]}).then(dbUser => {
-      res.json(dbUser)
+    // To conver the date into something meaningful
+    
+    db.User.findOne({
+      where: {
+        id: req.user.id
+      },
+      include: [{model: db.Post}, {model: db.Comment}, {model: db.Payment}, {model: db.Earning}, {model: db.Cause}]
+    }).then(user => {
+      res.json(user)
     })
-  })
+   })
   
   app.get('/about', (req, res)=>{
     res.render("about-us", {user: req.user})
   })
 
+  
   // app.use('/', (req, res) => {
   //   res.redirect('/')
   // })
