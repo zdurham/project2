@@ -1,6 +1,7 @@
 const db = require("../models")
 const { check, validationResult } = require('express-validator/check');
 const request = require('request')
+const moment = require('moment')
 
 // for the Stripe call later
 const querystring = require('querystring')
@@ -18,6 +19,9 @@ const transporter = nodemailer.createTransport({
     pass: gpass
   }
 })
+
+
+
 
 //---------------------------------------------
 // Setting up Stripe and keys
@@ -63,12 +67,20 @@ module.exports = (app, passport) => {
 
   // Displaying welcome after successful login
   app.get('/dashboard', isLoggedIn, (req, res) => {
+    // To conver the date into something meaningful
+    
     db.User.findOne({
       where: {
         id: req.user.id
       },
       include: [{model: db.Post}, {model: db.Comment}, {model: db.Payment}, {model: db.Earning}]
-    }).then(user => res.render('dashboard', {user: user}))
+    }).then(user => {
+      
+
+      
+
+      res.render('dashboard', {user: user})
+    })
    })
   
    // Attempting to go to create-post without having signed in
@@ -259,7 +271,8 @@ module.exports = (app, passport) => {
         amount: actualCharge,
         date: new Date(),
         recipient: res.locals.username,
-        UserId: req.user.id
+        UserId: req.user.id,
+        createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
       }
 
       db.Payment.create(paymentObj).then(payment => console.log(payment))
@@ -268,7 +281,8 @@ module.exports = (app, passport) => {
         amount: actualCharge,
         date: new Date(),
         donor: req.user.id,
-        UserId: res.locals.id
+        UserId: res.locals.id,
+        createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
       }
 
       db.Earning.create(earningObj).then(earning => console.log(earning))
@@ -314,8 +328,8 @@ module.exports = (app, passport) => {
     request.post('https://connect.stripe.com/oauth/token', {
       form: {
         grant_type: 'authorization_code',
-        client_id: 'ca_BOWzYl4q2Nq34am4i7mndZm4wDfoC4BO',
-        client_secret: 'sk_test_H1nezbdzzB1eiwgOWgvCV3FL',
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.SECRET_KEY,
         code: req.query.code
       },
       json: true

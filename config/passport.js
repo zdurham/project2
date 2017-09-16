@@ -8,7 +8,7 @@ Reference for notes: https://code.tutsplus.com/tutorials/using-passport-with-seq
 const db = require('../models')
 const bcrypt = require('bcrypt')
 const { check, validationResult } = require('express-validator/check');
-
+const moment = require('moment')
 
 module.exports = (passport, user) => {
   user = db.User;
@@ -63,7 +63,7 @@ module.exports = (passport, user) => {
           password: userPassword,
           about: req.body.about,
           image: req.body.image,
-          userId: req.sessionID
+          createdAt: moment().format('MMMM Do YYYY, h:mm:ss a')
         };
 
         db.User.create(data).then(function(newUser, created) {

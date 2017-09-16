@@ -32,7 +32,7 @@ block content
           .row
             div.input-field.col.s12
               input.validate#email(name="email" type="text")
-              label(for="email") Email (required)
+              label(for="email" data-error='Invalid Email' data-success='Valid Email') Email (required)
           .row
             div.input-field.col.s12
               input.validate#username(name="username" type="text")

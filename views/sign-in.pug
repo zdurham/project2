@@ -27,7 +27,7 @@ block content
             p #{passErr}
         form(method='post' action='/sign-in')
           label(for="username") Email
-          input#email(name="email" type="text" placeholder = "email")
+          input#email(name="email" data-error='Invalid Email' data-success='Valid Email' type="text" placeholder = "email")
           label(for="password") Password
           input#password(name="password" type="password", placeholder ="Enter Your Password")
           div(class="center-align")
