@@ -9,15 +9,13 @@ block content
 						div.collapsible-header
 							i.material-icons exposure
 							p Post ID:
-							a(href=`/posts/${post.id}`)
+								a(href=`/posts/${post.id}`)
 							br
 							p Post Title:
-								h3 #{post.title}
+								h3 [#{post.category}] #{post.title}
 						div.collapsible-body
-							p Category:
-							h3 #{post.category}
 							br
-							p Body:
+							//p Body:
 							p #{post.body}
 							br
 							

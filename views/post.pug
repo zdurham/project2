@@ -12,7 +12,7 @@ block content
               h5 #{post.User.username}
           div.row.center-align
             if User
-                img(src=`${cause.User.image}` width = '100' height = '100')
+                img(src=`${post.User.image}` width = '100' height = '100')
             else
               img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
         div.col.s9
@@ -20,7 +20,6 @@ block content
           p #{post.body}
           div(class ="divide")
           hr
-          p Signature Below
           if user
             p Reply to this post
             form(action='/posts/' + post.id + '/comment' method='post')

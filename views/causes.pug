@@ -8,15 +8,22 @@ block content
 				each cause in causes
 					li
 						div.collapsible-header
-							i.material-icons exposure
-							p Post ID:
-							a(href=`/causes/${cause.id}`)
-								h3 #{cause.id}
-							br
-							p Post Title:
-								h3 #{cause.title}
+							.container(style="margin-left:0;margin-right:0;")
+								.row(style="margin-bottom:0")
+									.col.s12
+										p Posted by #{cause.User.username} at #{cause.CreatedAt}
+								.row(style="margin-bottom:0")
+									.col.s12
+										h3 [ID: #{cause.id}]  #{cause.title}
+
 						div.collapsible-body
-							p Goal:
-							p #{cause.goal}
+							p Cause:
+							p #{cause.body}
 							br
+							p Goal: $#{cause.goal}
+							br
+							p Progress: $#{cause.progress}
+							br
+							a(href=`/posts/${post.id}`)
+								button.btn.waves-effect.blueBtn.waves-light#donateButton(type="submit") Go to This Post
 							

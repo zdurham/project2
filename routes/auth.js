@@ -73,7 +73,7 @@ module.exports = (app, passport) => {
   
    // Attempting to go to create-post without having signed in
    app.get('/create-post', isLoggedIn, (req, res) => {
-     res.render('create-post')
+     res.render('create-post', {user: req.user})
    })
 
    // Attempting to go to create cause without having signed in
@@ -84,10 +84,10 @@ module.exports = (app, passport) => {
   // Registering user
   app.post("/sign-up", [
     check('email').isEmail().withMessage('Email is not valid!'), 
-    check('password').not().isEmpty().withMessage('This is a required field'),
-    check('username').not().isEmpty().withMessage('This is a required field'),
-    check('firstName').not().isEmpty().withMessage('This is a required field'),
-    check('lastName').not().isEmpty().withMessage('This is a required field'),
+    check('password').not().isEmpty().withMessage('Please fill out all required fields to continue'),
+    check('username').not().isEmpty().withMessage('Please fill out all required fields to continue'),
+    check('firstName').not().isEmpty().withMessage('Please fill out all required fields to continue'),
+    check('lastName').not().isEmpty().withMessage('Please fill out all required fields to continue'),
     check('password2').not().isEmpty().withMessage('Your passwords do not match!').custom((value,{req}) => value === req.body.password)
   
     ], 
@@ -99,7 +99,7 @@ module.exports = (app, passport) => {
           req.flash('badEmail', 'Please enter a valid email address')
         }
         if (err.username) {
-          req.flash('badUser', 'This field is required')
+          req.flash('badUser', 'Please fill out all required fields to continue')
         }
         if (err.password) {
           req.flash('badPass', 'Your password is required')
@@ -108,10 +108,10 @@ module.exports = (app, passport) => {
           req.flash('noMatch', 'Your passwords do not match')
         }
         if (err.lastName) {
-          req.flash('badFirst', 'This is a required field')
+          req.flash('badFirst', 'Please fill out all required fields to continue')
         }
         if (err.firstName) {
-          req.flash('badLast', 'This is a required field')
+          req.flash('badLast', 'Please fill out all required fields to continue')
         }
         return res.redirect('/sign-up')
       }

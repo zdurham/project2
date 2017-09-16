@@ -62,6 +62,7 @@ module.exports = (passport, user) => {
           username: req.body.username,
           password: userPassword,
           about: req.body.about,
+          image: req.body.image,
           userId: req.sessionID
         };
 

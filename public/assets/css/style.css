@@ -131,7 +131,7 @@ main {
   	background-color:#FF5E00;
   }
 
-  .marginRemover: first-child .row{
+  .marginRemover:first-child .row{
 	margin:0px;
   }
   .createTopper{
@@ -144,4 +144,16 @@ main {
   }
  .dropdown-content li a{
  	color:#FF5E00;
+ }
+
+
+ /* error messages */
+ .err {
+	 color: #ff0033;
+	 background-color: #F4C2C2;
+	 text-align: center;
+	 margin: 0 auto;
+	 width: 100%;
+	 border-radius: 4px
+
  }
