@@ -3,26 +3,28 @@ extends main
 
 block content
   .flex-container
-    .row
+    div(class="marginRemover")
+      div(class="row createTopper")
+        div(class ="col s6 offset-s3 createTopperColor")
+          h3.title Submit a Cause
+    div(class ="row")
       div.col.s6.offset-s3.z-depth-2
-        div.center
-          form.center.validate#createPost(action='/create-cause' method='post' name='create-cause')
-            .row
-              div.input-field.center
-                //- i.material-icons.prefix note_add
-                h1.center Create a New Cause
-              div.input-field.center
-                i.material-icons.prefix mode_edit
-                input.validate#title(name='title' type='text')
-                label(for='title') Title
-              div.input-field.center
-                i.material-icons.prefix mode_edit
-                textarea.materialize-textarea.validate#body(name='body' type='text')
-                label(for='body') Body
-              div.input-field.center
-                i.material-icons.prefix local_atm
-                input.validate#goal(name='goal' type='number')
-                label(for='goal') Goal Amount
-              div.center
-                button.blueBtn#submit(type="submit") Create Cause
-        
+        form#createPost(action='/create-cause' method='post' name='create-cause')
+          div.input-field
+            br
+            i.material-icons.prefix note_add
+            br
+            div.input-field.col.s12
+              i.material-icons.prefix mode_edit
+              input.validate#title(name='title' type='text')
+              label(for='title') Title
+            div.input-field.col.s12
+              i.material-icons.prefix mode_edit
+              textarea.materialize-textarea.validate#body(name='body' type='text')
+              label(for='body') Body
+            div.input-field.col.s12.center-align
+              input.validate#goal(name='goal' type='number')
+              label(for='goal') Goal Amount
+              button.btn.blueBtn.waves-effect.waves-light#submit(type="submit")(style="margin-bottom:20px") Submit
+              br
+          

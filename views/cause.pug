@@ -1,44 +1,40 @@
 extends main
 
 block content
-  div.container
-    div.row.headerColor
-      div.col.l12.center-align
-        h4 #{cause.title}
-    div.row
-      div.col.l12.postIndiv
-        div.row
+  div(class="marginRemover")
+      div(class="row createTopper")
+        div(class ="col s8 offset-s2 createTopperColor", style ="padding-bottom:0px;margin-top:20px;")
+          h3.title #{cause.title}
+      div.row
+        div.col.s8.offset-s2.postIndiv.z-depth-2
           div.col.l3.postLCol
             div.row.center-align
-                h5 #{cause.User.username}
+              h5 #{cause.User.username}
             div.row.center-align
               if User
-                img(src=`${cause.User.image}` width='100' height='100')
+                img(src=`${cause.User.image}` width = '100' height = '100')
               else
                 img(src ="https://static.licdn-ei.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png", width ="100", height="100")
           div.col.s9
-            
             p #{cause.body}
-            div(class ="divide")
+            div(class = "divide")
             hr
-            p 
-        div.row
-          div.col.l12.orange
             if user
               form(action=`/causes/${cause.id}/charge`, method="post")
                 div.input-field
                   input#amount(name='amount' type='number')
-                  label(for='amount') Amount (in USD)
+                  label(for="amount") Amount (in USD)
                 script(
-                  src="//checkout.stripe.com/v2/checkout.js",
-                  class="stripe-button",
-                  data-key=keyPublish
-                  data-locale="auto",
-                  data-description="Sample Charge",
-                  data-amount="500")
+                      src="//checkout.stripe.com/v2/checkout.js",
+                      class="stripe-button",
+                      data-key=keyPublish
+                      data-locale="auto",
+                      data-description="Sample Charge",
+                      data-amount="500")
             else
-              p You must be logged in to donate
-    
-            script(src="https://checkout.stripe.com/checkout.js")
-            script(src="https://js.stripe.com/v3/")
-            script(src='/assets/javascript/stripe.js')
+                p You must be logged in to donate
+        
+                script(src="https://checkout.stripe.com/checkout.js")
+                script(src="https://js.stripe.com/v3/")
+                script(src='/assets/javascript/stripe.js')
+        div.col.s8.offset-s2.postIndiv.blueBox(style="height:60px;")

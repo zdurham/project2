@@ -1,6 +1,7 @@
 {
   "development": {
-    "username": "codingbootcamp",
+    "username": "root",
+    "password":"UltraMagnus86",
     "database": "project2",
     "host": "localhost",
     "dialect": "mysql"
