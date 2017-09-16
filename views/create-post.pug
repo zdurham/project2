@@ -2,35 +2,36 @@ extends main
 
 
 block content
-  .flex-container
-    br
-    div(class="marginRemover")
-      div(class="row createTopper")
-        div(class ="col s6 offset-s3 createTopperColor")
-          h3.title Submit a New Request!
-    div(class ="row")
-      div.col.s6.offset-s3.z-depth-2
-        form#createPost(action='/create-post' method='post' name='signin')
-          .row
-            div.input-field.col.s12
-              i.material-icons.prefix note_add
-              br
-            div.input-field.col.s12
-              i.material-icons.prefix mode_edit
-              input.validate#title(name='title' type='text')
-              label(for='title') Title
-            div.input-field.col.s12
-              select.validate#category(name='category')
-                option(value='Activism') Activism
-                option(value='Event / Rally') Event / Rally
-                option(value='Man-Made Disasters') Man-Made Disasters
-                option(value='Natural Disasters') Natural Disasters
-                option(value='Miscellaneous') Miscellaneous
-              label Category
+  main
+    .flex-container
+      br
+      div(class="marginRemover")
+        div(class="row createTopper")
+          div(class ="col s6 offset-s3 createTopperColor")
+            h3.title Submit a New Request!
+      div(class ="row")
+        div.col.s6.offset-s3.z-depth-2
+          form#createPost(action='/create-post' method='post' name='signin')
+            .row
+              div.input-field.col.s12
+                i.material-icons.prefix note_add
+                br
+              div.input-field.col.s12
+                i.material-icons.prefix mode_edit
+                input.validate#title(name='title' type='text')
+                label(for='title') Title
+              div.input-field.col.s12
+                select.validate#category(name='category')
+                  option(value='Activism') Activism
+                  option(value='Event / Rally') Event / Rally
+                  option(value='Man-Made Disasters') Man-Made Disasters
+                  option(value='Natural Disasters') Natural Disasters
+                  option(value='Miscellaneous') Miscellaneous
+                label Category
 
-            div.input-field.col.s12.center-align
-              i.material-icons.prefix mode_edit
-              textarea.materialize-textarea.validate#body(name='body' type='text')
-              label(for='body') Body
-              button.blueBtn.btn.waves-effect.waves-light#submit(type="submit")(style="margin-bottom:20px") Submit
-          
+              div.input-field.col.s12.center-align
+                i.material-icons.prefix mode_edit
+                textarea.materialize-textarea.validate#body(name='body' type='text')
+                label(for='body') Body
+                button.blueBtn.btn.waves-effect.waves-light#submit(type="submit")(style="margin-bottom:20px") Submit
+            

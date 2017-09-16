@@ -103,10 +103,24 @@ main {
   	background-color:#383481;
   	color:white;
   }
+  .subTabActive{
+    background-color:#FF5E00;
+    color:white;
+    font-size:8px;
+    padding:0px;
+    margin:0px;
+  }
+  .subTabInactive{
+    background-color:#383481;
+    color:white;
+    font-size:8px;
+    padding:0px;
+    margin:0px;
+  }
   .tabs .indicator{
   	color:white;
   }
-  .tabs h5{
+  .tabs h5,h6{
   	color:white;
   }
   .orangeBtn{
@@ -131,7 +145,7 @@ main {
   	background-color:#FF5E00;
   }
 
-  .marginRemover:first-child .row{
+  .marginRemover: first-child .row{
 	margin:0px;
   }
   .createTopper{
@@ -144,6 +158,7 @@ main {
   }
  .dropdown-content li a{
  	color:#FF5E00;
+
  }
 
 
@@ -218,3 +233,4 @@ main {
 	border-bottom: 1px solid #383481 !important;
 	box-shadow: 0 1px 0 0 #383481 !important;
 }
+
