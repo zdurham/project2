@@ -35,7 +35,7 @@ block content
 
 
 								if user.stripeAccountId
-									form(method='post' action='/dashboard stripe-dash')
+									form(method='post' action='/dashboard/stripe-dash')
 										button.btn.blueBtn(type='submit') View Stripe Dashboard
 								else
 									form(method='get' action='/authorize')
