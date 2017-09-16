@@ -1,60 +1,67 @@
 extends main
 
 block content
-  .flex-container
-    div(class="marginRemover")
-      div(class="row createTopper")
-        div(class ="col s6 offset-s3 createTopperColor", style ="padding-bottom:0px;margin-top:20px;")
-          h3.title Register
-    .row
-      div.col.s6.offset-s3.z-depth-2
-        if badUser
-          div.err
-            p #{badUser}        
-        if badEmail
-          div.err
-            p #{badEmail}
-        if badPass
-          div.err
-            p #{badPass}
-        if noMatch
-          div.err
-            p #{noMatch}
-        p.center Please fill out the information below
-        form#signup(method='POST' action="/sign-up" name="signup")
-          .row
-            div.input-field.col.s6
-              input.validate#firstName(name="firstName" type="text")
-              label(for="firstName") First Name (required)
-            div.input-field.col.s6
-              input.validate#lastName(name="lastName" type="text")
-              label(for="lastName") Last Name (required)
-          .row
-            div.input-field.col.s12
-              input.validate#email(name="email" type="text")
-              label(for="email" data-error='Invalid Email' data-success='Valid Email') Email (required)
-          .row
-            div.input-field.col.s12
-              input.validate#username(name="username" type="text")
-              label(for="username") Username (required)
-          .row
-            div.input-field.col.s12
-              input.validate#password(name="password" type="password")
-              label(for="password") Password (required)
-            div.input-field.col.s12
-              input.validate#password2(name="password2" type="password")
-              label(for="password2") Confirm Password (required)
-            div.input-field.col.s12
-              textarea.materialize-textarea#about(name="about" type="text")
-              label(for="about") About Me
-            div.input-field.col.s12
-              input.validate#image(name="image" type="text")
-              label(for="image") Add URL to Profile Picture
-            //- div.input-field.col.s12.center-al
-            //-   img.validate#imageURL(name="imageURL")
-            //-   br
-            //-   button.btn.waves-effect.orangeBtn.waves-light#uploadButton(type="button") Upload Photo
-            hr
-            div.input-field.col.s12.center-align
-              button.btn.waves-effect.blueBtn.waves-light#submit(type="submit") Submit
-            
+  main
+    .flex-container
+      div(class="marginRemover")
+        div(class="row createTopper")
+          div(class ="col s6 offset-s3 createTopperColor", style ="padding-bottom:0px;margin-top:20px;")
+            h3.title Register
+      .row
+        div.col.s6.offset-s3.z-depth-2
+          p Hello
+          p Please fill out the information below
+          form#signup(method='POST' action="/sign-up" name="signup")
+            .row
+              if badFirst
+                  p #{badFirst}
+              div.input-field.col.s6
+                input.validate#firstName(name="firstName" type="text")
+                label(for="firstName") First Name (required)
+              if badLast
+                  p #{badLast}
+              div.input-field.col.s6
+                input.validate#lastName(name="lastName" type="text")
+                label(for="lastName") Last Name (required)
+            .row
+              div.input-field.col.s12
+                if badEmail
+                  p #{badEmail}
+
+                input.validate#email(name="email" type="text")
+                label(for="email") Email (required)
+            .row
+              div.input-field.col.s12
+                if badUser
+                  p #{badUser}
+
+                input.validate#username(name="username" type="text")
+                label(for="username") Username (required)
+            .row
+              div.input-field.col.s12
+                if badPass
+                  p.err #{badPass}
+                input.validate#password(name="password" type="text")
+                label(for="password") Password (required)
+              div.input-field.col.s12
+
+                if noMatch
+                  p.err #{noMatch}
+                input.validate#password2(name="password2" type="text")
+                label(for="password2") Confirm Password (required)
+              div.input-field.col.s12
+
+                textarea.materialize-textarea#about(name="about" type="text")
+                label(for="about") About Me
+              div.input-field.col.s12
+                input.validate#image(name="image" type="text")
+                label(for="image") Add URL to Profile Picture
+              div.input-field.col.s12.center-al
+                img.validate#imageURL(name="imageURL")
+                br
+                button.btn.waves-effect.orangeBtn.waves-light#uploadButton(type="button") Upload Photo
+                hr
+              div.input-field.col.s12.center-align
+                button.btn.waves-effect.blueBtn.waves-light#submit(type="submit") Submit
+              script
+                include ../public/assets/javascript/main.js
