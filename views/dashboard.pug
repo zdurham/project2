@@ -136,11 +136,11 @@ block content
 				div#commentsTab
 					.row
 						.col.s12
-							if comments
+							if comments.length > 0 
 								ul
 									each comment in comments
 										li 
-											p #{comments.body}
+											p #{comment.body}
 											p #{comment.createdAt}
 							else
 								p You haven't commented on any posts 
