@@ -21,9 +21,9 @@ This is an ongoing project being maintained and updated by:
 * Melvin Hill
   * [Github](https://github.com/Melville36)
 
-## Technologies
+## Technology Used
 
-We developed this platform with the help of the following technologies:
+We developed this platform with the help of the following tools:
 
 * [Node.js](https://nodejs.org/en/)
 * [Express.js](https://expressjs.com/)
