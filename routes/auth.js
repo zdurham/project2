@@ -196,13 +196,15 @@ module.exports = (app, passport) => {
       stripe.charges.create({
         
         amount: res.locals.amount,
+        receipt_email: req.user.email,
         destination: {
           amount: res.locals.amount,
           account: account
         },
         description: "Sample Charge",
         currency: "usd",
-        source: req.body.stripeToken   
+        source: req.body.stripeToken
+        
     }).then(charge => {
       let actualCharge = (charge.amount / 100)
       res.render("charge", {
