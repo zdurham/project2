@@ -1,19 +1,27 @@
-## Rally Point
+# Rally Point
 
 To someone watching the news these days we are seeing a seemingly unprecedented rise in natural and man made diasters. We see people struggling in these terrifying scenarios and wish there was some way we could help, to relieve them of this terrible burden. That is why created RallyPoint, a way for regular people to reach out and give a helping hand to those in need.
 
 Rally Point basically functions as a crowd-funding platform for individuals and families that are in need.
 
+Rally Point is currently deployed using Heroku [here](https://hidden-anchorage-66521.herokuapp.com/)
 
-### Team
+### One Note about Stripe
+
+Stripe is currently still in test mode on our application, meaning that no actual transactions can occur.
+
+## Team
 
 This is an ongoing project being maintained and updated by:
 
-* [Zach Durham]()
-* 
-* 
+* Zach Durham
+  * [Github](https://github.com/zdurham)
+* Richard Meaney
+  * [Github](https://github.com/rmeaney)
+* Melvin Hill
+  * [Github](https://github.com/Melville36)
 
-### Technologies
+## Technologies
 
 We developed this platform with the help of the following technologies:
 
