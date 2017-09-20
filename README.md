@@ -1,4 +1,4 @@
-!(RallyPoint Logo)[assets/images/rpLogo.png]
+!(RallyPoint Logo)[https://github.com/zdurham/RallyPoint/blob/master/public/assets/images/rpLogo.png]
 
 To someone watching the news these days we are seeing a seemingly unprecedented rise in natural and man made diasters. We see people struggling in these terrifying scenarios and wish there was some way we could help, to relieve them of this terrible burden. That is why created RallyPoint, a way for regular people to reach out and give a helping hand to those in need.
 
