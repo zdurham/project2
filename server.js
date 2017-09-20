@@ -1,4 +1,4 @@
-// Dependencies
+// Dependencies for the application
 const express = require('express')
 const pug = require('pug')
 const bodyParser = require('body-parser')
@@ -31,7 +31,7 @@ app.use(session({ secret: 'totallysecret',resave: true, saveUninitialized:true})
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-
+// This is for connect-flash middleware to display error messages
 app.use(flash())
 
 //---------------------------------------------
@@ -61,9 +61,6 @@ require('./routes/post-routes.js')(app)
 // API Routes
 require("./routes/comment-route.js")(app)
 
-// User Routes
-require('./routes/user-routes.js')(app)
-
 // Authentication routes and Stripe routes
 require("./routes/auth.js")(app, passport)
 
@@ -72,7 +69,7 @@ require("./routes/routes.js")(app)
 
 
 //---------------------------------------------
-// Start server code below
+// Start server and sync database code
 //---------------------------------------------
 
 db.sequelize.sync({}).then(function() {

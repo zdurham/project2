@@ -1,14 +1,21 @@
+// Dependencies for this module
 const db = require("../models")
 const { check, validationResult } = require('express-validator/check');
 const request = require('request')
-const moment = require('moment')
 
-// for the Stripe call later
+
+// Specifically used for Stripe functions later
+const stripe = require('stripe')(process.env.SECRET_KEY)
 const querystring = require('querystring')
 const env = require('dotenv')
 env.load()
 
-
+// For nodemailer to work, gmail information and initialization
+// 
+// NOTE FOR FUTURE BUILDS:
+// Stripe has built in reciepts which may make nodemailer redundant, however
+// they do not work in test mode, so nodemailer is useful for us until
+// production stage
 const nodemailer = require('nodemailer')
 const gmail = process.env.GMAIL_USERNAME
 const gpass = process.env.GMAIL_PASSWORD
@@ -20,24 +27,19 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-
-
-
-//---------------------------------------------
-// Setting up Stripe and keys
-//---------------------------------------------
-// const keyPublishable = process.env.PUBLISHABLE_KEY
-// const keySecret = process.env.SECRET_KEY
-
-const stripe = require('stripe')(process.env.SECRET_KEY)
-
-
+// These routes are exported as a function which takes the express app and passport
 module.exports = (app, passport) => {
   
+
+  //---------------------------------------------
+  // GET ROUTES
+  //---------------------------------------------
+
   // Displaying sign up page
   app.get("/sign-up", (req, res) => {
 
-    // This renders the page and any error messages
+    // This renders the page along with any error messages communicated from express-validator or 
+    // the local strategies
     res.render("sign-up", {
       message:  req.flash('signUpFailure'),
       badEmail: req.flash('badEmail'),
@@ -49,6 +51,8 @@ module.exports = (app, passport) => {
     })
   }) 
 
+  // Display sign-in page, along with any
+  // errors that may arise during the login process
   app.get('/sign-in', (req, res) => { 
     res.render('sign-in', {
       badEmail: req.flash('badEmail'),
@@ -58,7 +62,7 @@ module.exports = (app, passport) => {
     })
   })
 
-  // Logging out
+  // Route for logging out
   app.get("/logout", (req, res) => {
     req.session.destroy((err) => {
       res.redirect('/')
@@ -67,8 +71,9 @@ module.exports = (app, passport) => {
 
   // Displaying welcome after successful login
   app.get('/dashboard', isLoggedIn, (req, res) => {
-    // To conver the date into something meaningful
     
+    // Reach into database to gather user information for the page
+    // The query gathers all related tables for User history
     db.User.findOne({
       where: {
         id: req.user.id
@@ -79,17 +84,29 @@ module.exports = (app, passport) => {
     })
    })
   
-   // Attempting to go to create-post without having signed in
+   // If logged in, displays Create Post page
+   // isLoggedIn is function that checks 
+   // for req.user, if no user, redirected to 
+   // sign-in page
    app.get('/create-post', isLoggedIn, (req, res) => {
      res.render('create-post', {user: req.user})
    })
 
-   // Attempting to go to create cause without having signed in
+   // If logged in, this will display Create Cause page
+   // Again, isLoggedIn is checking for user to be logged in
+   // If not logged in, redirected to sign-in page
    app.get('/create-cause', isLoggedIn, (req, res) => {
      res.render('create-cause', {user: req.user})
    })
 
-  // Registering user
+
+  //---------------------------------------------
+  // POST ROUTES
+  //---------------------------------------------
+  
+  // Route for registering. Takes user info
+  // from the sign up page and stores in mySQL database
+  // express validator is used to check for proper inputs
   app.post("/sign-up", [
     check('email').isEmail().withMessage('Email is not valid!'), 
     check('password').not().isEmpty().withMessage('Please fill out all required fields to continue'),
@@ -125,7 +142,8 @@ module.exports = (app, passport) => {
       }
       else {
         next()
-      } 
+      }
+    // if everything works out on express-validation, proceed to local signup strategy 
     }, passport.authenticate('local-signup', {
       successRedirect: '/dashboard',
    
@@ -135,6 +153,7 @@ module.exports = (app, passport) => {
   }));
 
   // Returning user signs in
+  // express validator is used to check for proper inputs
   app.post("/sign-in", [
     // check the email
     check('email').isEmail().withMessage('Email is not valid!'), 
@@ -156,6 +175,8 @@ module.exports = (app, passport) => {
       else {
         next()
       }
+    // If inputs make it through express-validator
+    // proceed to local-signin strategy
     }, passport.authenticate('local-signin', {
       successRedirect: '/dashboard',
       
@@ -166,18 +187,14 @@ module.exports = (app, passport) => {
   );
 
   //---------------------------------------------
-  //
-  //
-  //
-  // Setting up Stripe routes, hopefully they work
-  //
-  //
-  //
+  // Stripe Routes
   //---------------------------------------------
 
-  //
-  //  This route is the Stripe Checkout Route
-  //
+  // This large frankenstein function does a lot:
+  // Creates a charge for stripe
+  // Emails donor and recipient
+  // Stores transaction information in earnings and payment tables
+  // Update progress on cause
   app.post("/causes/:cause/charge", (req, res) => {
     res.locals.amount = req.body.amount * 100
     db.Cause.findOne({
@@ -206,12 +223,20 @@ module.exports = (app, passport) => {
         source: req.body.stripeToken
         
     }).then(charge => {
+      
+      // After the charge has been processed
+      // We return the charge object
+      // the charge must be converted to an actual amount
+      // as Stripe considers transactions by cents
       let actualCharge = (charge.amount / 100)
       res.render("charge", {
         user: req.user,
         chargeAmount: actualCharge,
       })
-      // Send confirmation email
+
+      // Here we define an email object to be sent
+      // to the donor according to nodemailer
+      // documentation
       let donorEmail = {
         from: gmail,
         to: req.user.email,
@@ -225,10 +250,12 @@ module.exports = (app, passport) => {
         
         <h3>Best,<h3>
         <br>
-        <h3>The RallyPoint Team</h3>` //, // plaintext body
-        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+        <h3>The RallyPoint Team</h3>` 
       };
 
+      // Here we define an email object to be sent
+      // to the recipient according to nodemailer
+      // documentation
       let recipientEmail = {
         from: gmail,
         to: res.locals.causeEmail,
@@ -242,11 +269,9 @@ module.exports = (app, passport) => {
         <h3>Best,<h3>
         <br>
         <h3>The RallyPoint Team</h3>`
-        
-        //, // plaintext body
-        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
       };
 
+      // Actual function to send donorEmail. Console.logs to confirm
       transporter.sendMail(donorEmail, function(error, info){
         if(error){
             console.log(error);
@@ -256,7 +281,7 @@ module.exports = (app, passport) => {
             
         };
       });
-
+      // Actual function to send recipientEmail. Console.logs to confirm
       transporter.sendMail(recipientEmail, function(error, info){
         if(error){
             console.log(error);
@@ -266,6 +291,10 @@ module.exports = (app, passport) => {
             
         };
       });
+
+      // Define paymentObj to be stored in payment table
+      // This is essentially meant to be a history
+      // for the user to look back on later
       let paymentObj = {
         amount: actualCharge,
         date: new Date(),
@@ -274,8 +303,13 @@ module.exports = (app, passport) => {
         UserId: req.user.id
       }
 
+      // Store paymentObj in Payment table
       db.Payment.create(paymentObj).then(payment => console.log(payment))
 
+      // Define earning for recipient and store in database
+      // Again, this is to track transaction history
+      // And have a memory of recieving money, and from
+      // whom
       let earningObj = {
         amount: actualCharge,
         date: new Date(),
@@ -284,8 +318,10 @@ module.exports = (app, passport) => {
         UserId: res.locals.id,
       }
 
+      // Store earningObj in Payment table
       db.Earning.create(earningObj).then(earning => console.log(earning))
 
+      // Update the progress amount for this cause
       db.Cause.update({
         progress: parseInt(charge.amount / 100) + parseInt(res.locals.progress)
       }, {
@@ -296,8 +332,14 @@ module.exports = (app, passport) => {
     })
     });
   });
-  //-------------------------------------------------
-  // Connect Stuff
+
+  
+
+
+  // This allows a user to connect their stripe account
+  // with the RallyPoint website upon registering with RallyPoint
+  // Activated when the user presses the 'Connect with Stripe'
+  // button on their dashboard
   app.get('/authorize', isLoggedIn, (req, res) => {
     // Generate a random string as state to protect from CSRF and place it in the session.
     req.session.state = Math.random().toString(36).slice(2);
@@ -317,7 +359,10 @@ module.exports = (app, passport) => {
     res.redirect('https://connect.stripe.com/express/oauth/authorize' + '?' + querystring.stringify(parameters));
   });
 
-
+  // This route is used after the user connects
+  // their account with Stripe. It redirects the user back 
+  // to RallyPoint with their unique stripe ID
+  // That stripe id is stored in their user information in mySQL
   app.get('/token', isLoggedIn, (req, res) => {
     // Check the state we got back equals the one we generated before proceeding.
     if (req.session.state != req.query.state) {
@@ -336,8 +381,8 @@ module.exports = (app, passport) => {
       if (err || body.error) {
         console.log('The Stripe onboarding process has not succeeded.');
       } else {
-        // Update the model and store the Stripe account ID in the datastore.
-        // This Stripe account ID will be used to pay out to the pilot.
+        
+        // This is where we store the unique stripe user id
         req.user.stripeAccountId = body.stripe_user_id;
         db.User.update(
           {
@@ -349,13 +394,16 @@ module.exports = (app, passport) => {
           }
         }).then(user => console.log(user))
       }
-      // Redirect to the final stage.
       
+      // At last, once the heavy lifting is done
+      // we redirect to the dashboard page
       res.redirect('/dashboard');
     });
   });
 
   // Stripe user dashboard link
+  // the user can press this to visit
+  // their unique stripe dashboard
   app.post('/dashboard/stripe-dash', (req, res) => {
     let user = req.user
     stripe.accounts.createLoginLink(
@@ -368,7 +416,8 @@ module.exports = (app, passport) => {
     );
   })
   
-
+  // This function checks to see if a user is logged in
+  // Used in routes above to gate certain pages
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
       return next();
