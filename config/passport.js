@@ -17,7 +17,7 @@ module.exports = (passport, user) => {
   let LocalStrategy = require('passport-local').Strategy
 
   // This function serializes the user, allowing us to hold onto user data in sessions
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function(user, done) {    
     done(null, user.id);
     });
 
